@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Diagnóstico y Reestructuración - Aulas STEAM</title>
+    
+    <!-- External Assets & Styles -->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <main class="app-container" id="survey-app">
+        <!-- Progress Tracker Bar -->
+        <div class="progress-container">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar-fill"></div>
+            </div>
+            <div class="progress-meta">
+                <span class="progress-steps-indicator" id="progress-text">Formulario Digital</span>
+                <span class="brand-badge-text" id="badge-rol" style="display: none;">Rol</span>
+            </div>
+        </div>
+
+        <!-- SCREEN 1: Welcome & Actor Selection -->
+        <section class="form-screen active" id="screen-welcome">
+            <div class="welcome-card">
+                <div class="welcome-illustration">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                
+                <div class="brand-badge">Ecosistema Innovación</div>
+                <h1>Reestructuración de Aulas STEAM</h1>
+                <p class="header-subtitle">
+                    Fase de diagnóstico, levantamiento de requerimientos y optimización del Proyecto Estampilla para el departamento de Caldas y el municipio de Manizales.
+                </p>
+
+                <!-- Disclaimer & Evaluation Process Banner -->
+                <div class="disclaimer-box">
+                    <h3><i class="fas fa-info-circle"></i> Proceso de Evaluación y Viabilidad</h3>
+                    <p>
+                        Todos los requerimientos e ideales de mejora recolectados a través de esta encuesta pasarán por un proceso de 
+                        evaluación de viabilidad por parte del <strong>equipo base del Aula STEM de la Universidad Nacional de Colombia</strong> 
+                        como entidad ejecutora. Las aprobaciones finales estarán sujetas a la viabilidad presupuestal del proyecto y las 
+                        normativas de adquisición de la Universidad como institución pública.
+                    </p>
+                </div>
+
+                <div class="question-group" style="text-align: left;">
+                    <label class="question-label" for="actor-select">Para iniciar, por favor identifique su rol o vinculación principal con el proyecto:</label>
+                    <p class="question-desc">Esto activará de forma inteligente las secciones y preguntas específicas asociadas a sus competencias operativas y técnicas.</p>
+                    <select id="actor-select">
+                        <!-- Options generated dynamically by app.js -->
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" id="btn-start" style="width: 100%; justify-content: center; margin-top: 20px;">
+                    Comenzar Formulario <i class="fas fa-play"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 2: Dynamic Form Step -->
+        <section class="form-screen" id="screen-form">
+            <div class="header-wrapper">
+                <h2 id="section-title" style="font-family: var(--font-display); font-weight: 700; color: var(--color-primary-dark); font-size: 1.5rem; margin-bottom: 5px;">Sección</h2>
+                <div style="width: 50px; height: 4px; background: var(--color-stem-purple); margin: 8px auto 0; border-radius: 10px;"></div>
+            </div>
+
+            <!-- Dynamic Question fields inserted here -->
+            <form id="dynamic-form-fields" onsubmit="event.preventDefault();">
+                <!-- Injected via JavaScript -->
+            </form>
+
+            <!-- Step Navigation Buttons -->
+            <div class="button-group">
+                <button class="btn btn-secondary" id="btn-prev">
+                    <i class="fas fa-arrow-left"></i> Atrás
+                </button>
+                <button class="btn btn-primary" id="btn-next">
+                    Siguiente <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- SCREEN 3: Success & Download Page -->
+        <section class="form-screen" id="screen-success">
+            <div class="success-card">
+                <div class="success-icon-wrapper">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h1>¡Respuestas Recopiladas!</h1>
+                <p class="header-subtitle" style="margin-bottom: 25px;">
+                    La recolección de información ha finalizado con éxito. Sus respuestas han sido consolidadas localmente en el navegador.
+                </p>
+
+                <!-- Viabilidad Recordatorio Final -->
+                <div class="disclaimer-box" style="margin-top: 10px; border-left-color: var(--color-gob-teal);">
+                    <h3><i class="fas fa-clipboard-check"></i> Próxima Fase: Mesa Técnica de Aprobación</h3>
+                    <p>
+                        El equipo técnico y pedagógico del <strong>Aula STEM UNAL</strong> consolidará todas las encuestas en la matriz de requerimientos 
+                        para evaluar el costo-beneficio, el ajuste normativo de contratación y la disponibilidad de presupuesto.
+                    </p>
+                </div>
+
+                <!-- Download Buttons -->
+                <div class="download-options">
+                    <button class="btn btn-download" id="btn-download-json">
+                        <i class="fas fa-file-code"></i> Descargar JSON
+                    </button>
+                    <button class="btn btn-download" id="btn-download-csv">
+                        <i class="fas fa-file-csv"></i> Descargar CSV
+                    </button>
+                </div>
+
+                <!-- Response Preview section for demo purposes -->
+                <div class="response-preview">
+                    <h3><i class="fas fa-eye"></i> Vista Previa de sus Respuestas</h3>
+                    <div class="preview-grid" id="preview-grid">
+                        <!-- Injected via JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Universidad Nacional de Colombia - Proyecto Estampilla Aulas STEAM Caldas-Manizales</p>
+    </footer>
+
+    <!-- App Script logic -->
+    <script src="app.js"></script>
+</body>
+</html>

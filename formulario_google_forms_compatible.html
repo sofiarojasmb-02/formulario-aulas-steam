@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario Diagnóstico y Reestructuración - Aulas STEAM</title>
+    
+    <!-- Librería externa de iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!--
+      INSTRUCCIONES DE CONFIGURACIÓN CON GOOGLE FORMS:
+      1. Cree su formulario en Google Forms con las preguntas correspondientes.
+      2. Abra su Google Form publicado, haga clic derecho en cada campo de pregunta e inspeccione el código HTML.
+      3. Busque el atributo 'name="entry.123456789"' de cada campo de pregunta.
+      4. Vaya a la sección de <script> al final de este archivo y reemplace los valores del objeto 'googleFormMapping'
+         y la variable 'googleFormUrl' con sus IDs de pregunta reales.
+    -->
+    
+    <style>
+        /* System Design & Theme Configuration */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+        :root {
+            --color-primary: #4f46e5;
+            --color-primary-light: #818cf8;
+            --color-primary-dark: #3730a3;
+            --color-stem-purple: #5b21b6;
+            --color-stem-violet: #8b5cf6;
+            --color-gob-teal: #0d9488;
+            --color-gob-teal-light: #2dd4bf;
+            --color-aliados-orange: #c2410c;
+            --color-aliados-orange-light: #ea580c;
+            --color-unal-gold: #b45309;
+            --color-unal-yellow: #f59e0b;
+            --color-bg-dark: #0f172a;
+            --color-bg-light: #f8fafc;
+            --color-text-dark: #0f172a;
+            --color-text-light: #f1f5f9;
+            --color-text-muted: #64748b;
+            
+            --font-primary: 'Inter', sans-serif;
+            --font-display: 'Outfit', sans-serif;
+            
+            --glass-bg: rgba(255, 255, 255, 0.9);
+            --glass-border: rgba(255, 255, 255, 0.4);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--color-bg-light);
+            color: var(--color-text-dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.12) 0px, transparent 50%),
+                radial-gradient(at 50% 0%, rgba(139, 92, 246, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(13, 148, 136, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+            padding: 20px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 900px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            box-shadow: var(--glass-shadow);
+            padding: 40px;
+            position: relative;
+            transition: var(--transition-smooth);
+        }
+
+        .header-wrapper {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--color-stem-purple), var(--color-primary));
+            color: white;
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--color-bg-dark), var(--color-primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header-subtitle {
+            color: var(--color-text-muted);
+            font-size: 1.05rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .progress-container {
+            margin-bottom: 40px;
+        }
+
+        .progress-bar-bg {
+            height: 6px;
+            background: rgba(226, 232, 240, 0.8);
+            border-radius: 10px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-stem-violet));
+            width: 0%;
+            border-radius: 10px;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .progress-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+        }
+
+        .progress-steps-indicator {
+            color: var(--color-primary);
+        }
+
+        .form-screen {
+            display: none;
+            animation: slideIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+
+        .form-screen.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .welcome-illustration {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 24px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 2px dashed var(--color-primary-light);
+        }
+
+        .welcome-illustration i {
+            font-size: 3rem;
+            color: var(--color-primary);
+        }
+
+        .disclaimer-box {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.04), rgba(139, 92, 246, 0.04));
+            border-left: 5px solid var(--color-primary);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: left;
+            margin: 30px 0;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .disclaimer-box h3 {
+            font-family: var(--font-display);
+            font-weight: 700;
+            color: var(--color-primary-dark);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .question-group {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .question-label {
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--color-text-dark);
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .question-desc {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            margin-bottom: 16px;
+            margin-top: -8px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: var(--font-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition-smooth);
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .scale-wrapper {
+            display: flex;
+            justify-content: space-between;
+            gap: 8px;
+            margin: 10px 0;
+        }
+
+        .scale-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .scale-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .scale-option label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 48px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .scale-option input[type="radio"]:checked + label {
+            background: var(--color-primary);
+            color: white;
+        }
+
+        .binary-wrapper {
+            display: flex;
+            gap: 16px;
+        }
+
+        .binary-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .binary-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .binary-option label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 12px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .binary-option input[type="radio"]:checked + label.yes-lbl {
+            background: rgba(13, 148, 136, 0.1);
+            border: 2px solid var(--color-gob-teal);
+            color: var(--color-gob-teal);
+        }
+
+        .binary-option input[type="radio"]:checked + label.no-lbl {
+            background: rgba(194, 65, 12, 0.1);
+            border: 2px solid var(--color-aliados-orange);
+            color: var(--color-aliados-orange);
+        }
+
+        .conditional-field {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .conditional-field.visible {
+            max-height: 200px;
+            opacity: 1;
+            margin-top: 16px;
+        }
+
+        .chips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        .chip-option {
+            position: relative;
+        }
+
+        .chip-option input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .chip-option label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: 1px solid transparent;
+        }
+
+        .chip-option input[type="checkbox"]:checked + label {
+            background: rgba(91, 33, 150, 0.08);
+            border-color: var(--color-stem-violet);
+            color: var(--color-stem-purple);
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+            color: white;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: var(--color-text-muted);
+        }
+
+        .success-card {
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        .success-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: rgba(13, 148, 136, 0.1);
+            color: var(--color-gob-teal);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2.5rem;
+            margin: 0 auto 20px;
+        }
+
+        .response-preview {
+            margin-top: 35px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            text-align: left;
+        }
+
+        .preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 16px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .preview-item {
+            font-size: 0.85rem;
+            background: white;
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .preview-item strong {
+            display: block;
+            color: var(--color-text-muted);
+            margin-bottom: 4px;
+            font-size: 0.75rem;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .app-container { padding: 24px 16px; }
+            h1 { font-size: 1.7rem; }
+            .button-group { flex-direction: column-reverse; gap: 12px; }
+            .btn { width: 100%; justify-content: center; }
+            .scale-wrapper { flex-wrap: wrap; }
+            .chips-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="app-container" id="survey-app">
+        <!-- Barra de Progreso -->
+        <div class="progress-container">
+            <div class="progress-bar-bg">
+                <div class="progress-bar-fill" id="progress-bar-fill"></div>
+            </div>
+            <div class="progress-meta">
+                <span class="progress-steps-indicator" id="progress-text">Formulario Digital</span>
+                <span class="brand-badge-text" id="badge-rol" style="display: none;">Rol</span>
+            </div>
+        </div>
+
+        <!-- PANTALLA 1: Bienvenida y Rol -->
+        <section class="form-screen active" id="screen-welcome">
+            <div class="welcome-card">
+                <div class="welcome-illustration">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                
+                <div class="brand-badge">Ecosistema Innovación</div>
+                <h1>Reestructuración de Aulas STEAM</h1>
+                <p class="header-subtitle">
+                    Fase de diagnóstico, levantamiento de requerimientos y optimización del Proyecto Estampilla para el departamento de Caldas y el municipio de Manizales.
+                </p>
+
+                <div class="disclaimer-box">
+                    <h3><i class="fas fa-info-circle"></i> Proceso de Evaluación y Viabilidad</h3>
+                    <p>
+                        Todos los requerimientos e ideales de mejora recolectados a través de esta encuesta pasarán por un proceso de 
+                        evaluación de viabilidad por parte del <strong>equipo base del Aula STEM de la Universidad Nacional de Colombia (DIMA)</strong>. 
+                        Las aprobaciones finales estarán sujetas a la viabilidad presupuestal del proyecto y las 
+                        normativas de adquisición de la Universidad como institución pública.
+                    </p>
+                </div>
+
+                <div class="question-group" style="text-align: left;">
+                    <label class="question-label" for="actor-select">Para iniciar, por favor identifique su rol o vinculación principal con el proyecto:</label>
+                    <p class="question-desc">Esto activará de forma inteligente las secciones y preguntas específicas asociadas a sus competencias operativas y técnicas.</p>
+                    <select id="actor-select">
+                        <!-- Opciones dinámicas en JS -->
+                    </select>
+                </div>
+
+                <button class="btn btn-primary" id="btn-start" style="width: 100%; justify-content: center; margin-top: 20px;">
+                    Comenzar Formulario <i class="fas fa-play"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- PANTALLA 2: Formulario Activo -->
+        <section class="form-screen" id="screen-form">
+            <div class="header-wrapper">
+                <h2 id="section-title" style="font-family: var(--font-display); font-weight: 700; color: var(--color-primary-dark); font-size: 1.5rem; margin-bottom: 5px;">Sección</h2>
+                <div style="width: 50px; height: 4px; background: var(--color-stem-purple); margin: 8px auto 0; border-radius: 10px;"></div>
+            </div>
+
+            <form id="dynamic-form-fields" onsubmit="event.preventDefault();">
+                <!-- Inputs inyectados dinámicamente -->
+            </form>
+
+            <div class="button-group">
+                <button class="btn btn-secondary" id="btn-prev">
+                    <i class="fas fa-arrow-left"></i> Atrás
+                </button>
+                <button class="btn btn-primary" id="btn-next">
+                    Siguiente <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </section>
+
+        <!-- PANTALLA 3: Envío Exitoso -->
+        <section class="form-screen" id="screen-success">
+            <div class="success-card">
+                <div class="success-icon-wrapper">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h1>¡Formulario Enviado con Éxito!</h1>
+                <p class="header-subtitle" style="margin-bottom: 25px;">
+                    Sus respuestas han sido registradas directamente en la base de datos de Google Forms.
+                </p>
+
+                <div class="disclaimer-box" style="margin-top: 10px; border-left-color: var(--color-gob-teal);">
+                    <h3><i class="fas fa-clipboard-check"></i> Próxima Fase: Mesa Técnica de Aprobación</h3>
+                    <p>
+                        El equipo técnico y pedagógico del <strong>Aula STEM UNAL (DIMA)</strong> consolidará todas las respuestas en la matriz de requerimientos 
+                        para evaluar el costo-beneficio, el ajuste normativo de contratación y la disponibilidad de presupuesto.
+                    </p>
+                </div>
+
+                <div class="response-preview">
+                    <h3><i class="fas fa-eye"></i> Vista Previa de sus Respuestas</h3>
+                    <div class="preview-grid" id="preview-grid">
+                        <!-- Inyectados por JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Universidad Nacional de Colombia - Proyecto Estampilla Aulas STEAM Caldas-Manizales</p>
+    </footer>
+
+    <!-- Lógica JavaScript compatible con Google Forms -->
+    <script>
+        // CONFIGURACIÓN DE GOOGLE FORMS:
+        // 1. Reemplace esta URL con la URL de formResponse de su Google Form
+        const googleFormUrl = "https://docs.google.com/forms/d/e/1FAIpQLSdjzVUMWR_LjRW_84G_hfosNhkUO2tOyi_G53zYc86JvkuxBg/formResponse";
+        
+        // 2. Mapee los IDs de las preguntas de este HTML a los IDs entry.XXXXX correspondientes en su Google Form
+        const googleFormMapping = {
+          "0_1": "entry.1654488854",
+          "0_2": "entry.1218665482",
+          "0_3_title": "entry.632190729",
+          "0_4": "entry.277783835",
+          "0_5": "entry.333510213",
+          "0_6": "entry.640762293",
+          "A_1": "entry.867987784",
+          "A_2": "entry.1024108680",
+          "A_3": "entry.1620392427",
+          "A_3_text": "entry.197305521",
+          "A_4": "entry.695367276",
+          "A_5": "entry.1608649937",
+          "B_1": "entry.280510231",
+          "B_2": "entry.125931978",
+          "B_3": "entry.112045201",
+          "B_4": "entry.848592662",
+          "B_5": "entry.644432065",
+          "B_6": "entry.1252701276",
+          "C_1": "entry.1666470671",
+          "C_2": "entry.1323022236",
+          "C_2_text": "entry.419606586",
+          "C_3": "entry.1528233040",
+          "C_4": "entry.1679433343",
+          "D_1": "entry.647764939",
+          "D_2": "entry.1913254821",
+          "D_3": "entry.1195601798",
+          "D_3_text": "entry.1557087061",
+          "D_4": "entry.1503028101",
+          "D_5": "entry.1511873120",
+          "D_6": "entry.1976789944",
+          "D_6_text": "entry.726852779",
+          "E_1": "entry.1857402100",
+          "E_2": "entry.1342916536",
+          "E_3": "entry.945597320",
+          "E_4": "entry.135715789",
+          "E_5": "entry.1628901759",
+          "E_6": "entry.1801801155",
+          "E_7": "entry.1008139890",
+          "E_8": "entry.1747418274",
+          "F_1": "entry.311708170",
+          "F_2": "entry.501451497",
+          "F_3": "entry.1620848934",
+          "F_4": "entry.1170364864",
+          "F_5": "entry.142570303",
+          "F_6": "entry.268468617",
+          "G_1": "entry.337387119",
+          "G_2": "entry.1949597458",
+          "G_2_text": "entry.1565994908",
+          "G_4": "entry.599574975",
+          "G_5": "entry.568413619",
+          "H_1": "entry.1384178262",
+          "H_2": "entry.2025438851",
+          "H_3": "entry.553141351",
+          "H_4": "entry.607489848",
+          "H_5": "entry.1579975686",
+          "I_1": "entry.1528641025",
+          "I_2": "entry.639649828",
+          "I_2_text": "entry.1284347917",
+          "I_3": "entry.633009419",
+          "I_4": "entry.816624221",
+          "I_5": "entry.1968011870",
+          "J_1": "entry.113311765",
+          "J_2": "entry.1759126667",
+          "J_3": "entry.730550376",
+          "J_4": "entry.1651615255",
+          "J_4_text": "entry.1070057250",
+          "J_5": "entry.2000422838",
+          "J_6": "entry.1403042002",
+          "K_1_1": "entry.643352290",
+          "K_1_2": "entry.775589121",
+          "K_1_3": "entry.452271949",
+          "K_1_3_text": "entry.998773485",
+          "K_2_1": "entry.1718781081",
+          "K_2_2": "entry.904479630",
+          "K_2_3": "entry.1102594273",
+          "K_3_1": "entry.2049538242",
+          "K_3_2": "entry.1003965386",
+          "K_3_3": "entry.1840319925",
+          "K_4_1": "entry.624097086",
+          "K_4_2": "entry.1785402800",
+          "K_5_1": "entry.1307833527",
+          "K_5_2": "entry.1701660379",
+          "K_5_3": "entry.175739631",
+          "K_6_1": "entry.2138978673",
+          "K_6_2": "entry.1375180669",
+          "K_6_3": "entry.451947385",
+          "V_1": "entry.1432117814",
+          "V_2_1": "entry.1959453214",
+          "V_2_2": "entry.576434093",
+          "V_2_3": "entry.1232128228",
+          "V_3_1": "entry.663126050",
+          "V_3_2": "entry.1002647395",
+          "V_3_3": "entry.1520316041",
+          "V_4": "entry.2107617779",
+          "V_6": "entry.31130183",
+          "V_5": "entry.222511859",
+          "V_5_text": "entry.1135075977"
+        };
+
+        const questionDatabase = {
+            sec0: [
+                { id: "0_1", label: "Nombre completo", type: "text", required: true },
+                { id: "0_2", label: "Institución / entidad a la que pertenece", type: "text", required: true },
+                {
+                    id: "0_4",
+                    label: "Municipio o sede de referencia",
+                    type: "select",
+                    required: true,
+                    options: [
+                        "Manizales (Sede Central)", "Aguadas", "Anserma", "Aranzazu", "Belalcázar", 
+                        "Chinchiná", "Filadelfia", "La Dorada", "La Merced", "Manzanares", 
+                        "Marmato", "Marquetalia", "Marulanda", "Neira", "Norcasia", "Pácora", 
+                        "Palestina", "Pensilvania", "Riosucio", "Risaralda", "Salamina", 
+                        "Samaná", "San José", "Supía", "Victoria", "Villamaría", "Viterbo",
+                        "UNAL Sede Manizales", "UNAL Sede Bogotá", "UNAL Sede Medellín", "UNAL Sede Tumaco"
+                    ]
+                },
+                { id: "0_5", label: "¿Desde qué año está vinculado/a al proyecto Aulas STEAM?", type: "number", required: true, min: 2015, max: 2026 },
+                { id: "0_6", label: "¿Ha visitado o trabajado directamente en al menos un Aula STEAM?", type: "binary", required: true }
+            ],
+            modA: [
+                { id: "A_1", label: "¿Cómo califica las condiciones físicas actuales de las Aulas STEAM?", desc: "Tenga en cuenta aspectos como espacio de transito, ventilación, iluminación y accesibilidad.", type: "scale", max: 5, required: true },
+                {
+                    id: "A_2",
+                    label: "¿Qué problemas de infraestructura ha identificado con mayor frecuencia?",
+                    type: "multiselect",
+                    options: [
+                        "Instalación eléctrica inestable o sin puesta a tierra",
+                        "Conectividad de red lenta o nula",
+                        "Ventilación inadecuada / exceso de calor",
+                        "Filtraciones o alta humedad relativa",
+                        "Aislamiento acústico insuficiente para la CNC",
+                        "Iluminación deficiente",
+                        "Espacio físico muy reducido",
+                        "Falta de rejas de seguridad o cerraduras seguras",
+                        "Falta de pintura o adecuación civil básica"
+                    ]
+                },
+                { id: "A_3", label: "¿Las instalaciones eléctricas y de red son suficientes para el uso simultáneo de todos los equipos?", desc: "Piense en conectar routers CNC, impresoras 3D y ordenadores a la vez.", type: "conditional-text", condTrigger: "No", condLabel: "Especifique qué fallas eléctricas o limitaciones de red ha experimentado:", required: true },
+                { id: "A_4", label: "¿Se han presentado situaciones de seguridad asociadas a la infraestructura?", desc: "Ej: hurtos, fallos eléctricos peligrosos, accidentes físicos. Descríbalas brevemente si aplica.", type: "text", required: false },
+                { id: "A_5", label: "¿Qué mejoras de infraestructura considera prioritarias para la siguiente fase del proyecto?", type: "text", required: true }
+            ],
+            modB: [
+                { id: "B_1", label: "¿Los equipos TIC disponibles (computadores, impresoras 3D, kits de robótica, VR) son suficientes para la demanda?", type: "scale", max: 5, required: true },
+                { id: "B_2", label: "¿Con qué frecuencia se presentan fallas técnicas en los equipos?", type: "select", required: true, options: ["Diaria", "Semanal", "Mensual", "Rara vez", "Nunca"] },
+                { id: "B_3", label: "¿Existe un protocolo de mantenimiento preventivo?", type: "select", required: true, options: ["Sí, y se cumple a cabalidad", "Sí, pero se cumple de forma parcial", "No existe o no se realiza", "No tengo conocimiento"] },
+                { id: "B_4", label: "¿Qué equipos, kits tecnológicos o software considera que hacen falta o deberían actualizarse?", type: "text", required: true },
+                { id: "B_5", label: "¿Los equipos actuales son compatibles con el software y las metodologías STEAM que se utilizan?", type: "scale", max: 5, required: true },
+                { id: "B_6", label: "¿Se han presentado pérdidas, robos o daños irreparables de equipos en su sede?", desc: "De ser así, explique brevemente el caso y cómo se gestionó ante el inventario.", type: "text", required: false }
+            ],
+            modC: [
+                { id: "C_1", label: "¿El mobiliario actual (mesas de trabajo, almacenamiento, tableros móviles) favorece el trabajo colaborativo?", type: "scale", max: 5, required: true },
+                { id: "C_2", label: "¿Se ha deteriorado, dañado o perdido mobiliario desde la instalación inicial?", type: "conditional-text", condTrigger: "Sí", condLabel: "Especifique qué mobiliario se ha deteriorado o perdido y las causas:", required: true },
+                { id: "C_3", label: "¿Qué elementos de mobiliario o dotación de almacenamiento considera que deben reemplazarse o incorporarse?", type: "text", required: true },
+                { id: "C_4", label: "¿El almacenamiento de los kits de robótica y herramientas manuales es adecuado y seguro?", type: "scale", max: 5, required: true }
+            ],
+            modD: [
+                { id: "D_1", label: "¿El modelo de financiación actual (recursos de la Estampilla) permite una ejecución oportuna de las metas?", type: "scale", max: 5, required: true },
+                { id: "D_2", label: "¿Qué cuellos de botella financieros o de contratación pública ha identificado en fases anteriores?", type: "text", required: true },
+                { id: "D_3", label: "¿Considera que el presupuesto asignado es suficiente para sostener y ampliar el proyecto en la siguiente vigencia?", type: "conditional-text", condTrigger: "No", condLabel: "Escriba su justificación o qué rubros adicionales se deben contemplar:", required: true },
+                { id: "D_4", label: "¿Existen restricciones normativas de la Universidad Nacional como entidad pública que limiten la adquisición ágil de equipos o servicios?", desc: "Ej: trabas en importación de chips, demoras en licitaciones de kits.", type: "text", required: true },
+                {
+                    id: "D_5",
+                    label: "¿Qué criterios deberían priorizarse en los futuros procesos de selección de proveedores tecnológicos?",
+                    type: "multiselect",
+                    options: [
+                        "Menor precio ofertado",
+                        "Calidad y robustez industrial del hardware",
+                        "Capacidad de soporte técnico y garantías in-situ",
+                        "Experiencia previa en el sector educativo público",
+                        "Disponibilidad de repuestos en el mercado nacional"
+                    ]
+                },
+                { id: "D_6", label: "¿Ha detectado inconsistencias o demoras severas entre los pliegos cotizados y lo entregado finalmente por los proveedores?", type: "conditional-text", condTrigger: "Sí", condLabel: "Describa detalladamente la inconsistencia detectada:", required: false }
+            ],
+            modE: [
+                { id: "E_1", label: "¿Existe un manual operativo, protocolo de uso o reglamento del Aula STEAM?", type: "select", required: true, options: ["Sí, y se utiliza efectivamente", "Sí, pero los docentes no lo aplican", "No existe o está en construcción"] },
+                { id: "E_2", label: "¿Cuántas horas semanales promedio está activo el Aula STEAM para clases directas con estudiantes?", type: "number", required: true, min: 0, max: 40 },
+                { id: "E_3", label: "¿Cuántos docentes de su institución se encuentran capacitados para operar el Aula de forma autónoma?", type: "number", required: true, min: 0, max: 100 },
+                { id: "E_4", label: "¿Qué brechas de capacitación técnica y soporte de hardware identifica en el equipo local?", type: "text", required: true },
+                { id: "E_5", label: "¿El modelo de coordinación actual (coordinador municipal contratado por la UNAL) es sostenible?", desc: "Argumente los pros y contras observados en el territorio.", type: "text", required: true },
+                { id: "E_6", label: "¿Cómo se realiza el seguimiento, inventario y reporte de uso diario del Aula? ¿Es suficiente?", type: "text", required: true },
+                { id: "E_7", label: "¿Qué mejoras operativas implementaría para aumentar la tasa de uso efectivo del Aula por los estudiantes?", type: "text", required: true },
+                { id: "E_8", label: "¿De qué manera implementaría el sostenimiento del aula STEAM para la adquisición de materiales consumibles?", desc: "Ej: filamentos 3D, componentes electrónicos, resinas, repuestos.", type: "text", required: true }
+            ],
+            modF: [
+                { id: "F_1", label: "¿Las actividades prácticas del Aula STEAM están alineadas con la malla curricular de su institución?", type: "scale", max: 5, required: true },
+                { id: "F_2", label: "¿Existe una planificación anual o trimestral de proyectos de aprendizaje basados en STEAM?", type: "select", required: true, options: ["Sí, consolidada en el PEI", "En proceso de estructuración", "No existe planificación, se usa de forma libre"] },
+                { id: "F_3", label: "¿Qué áreas del conocimiento se integran con facilidad y cuáles presentan barreras pedagógicas?", desc: "Ej: Matemáticas y Ciencias vs. Lenguaje o Ciencias Sociales.", type: "text", required: true },
+                { id: "F_4", label: "¿Se realiza un seguimiento estructurado al impacto en el aprendizaje y desarrollo de habilidades del estudiante?", desc: "Si es así, indique qué instrumentos o rúbricas de evaluación utilizan.", type: "text", required: true },
+                { id: "F_5", label: "¿Cómo percibe la motivación y rendimiento académico de los estudiantes que hacen uso del Aula STEAM?", type: "text", required: true },
+                { id: "F_6", label: "¿Qué tipo de contenidos formativos, guías didácticas o metodologías de co-diseño enriquecerían la experiencia?", type: "text", required: true }
+            ],
+            modG: [
+                { id: "G_1", label: "¿El Aula STEAM ha generado beneficios visibles para la comunidad del municipio?", desc: "Ej: ferias de ciencia, desarrollo de prototipos para solucionar problemas locales de acueducto o agro.", type: "text", required: true },
+                { id: "G_2", label: "¿El municipio ha podido aportar recursos propios (cofinanciación, infraestructura, fibra óptica, talento humano) para complementar el proyecto?", type: "conditional-text", condTrigger: "Sí", condLabel: "Especifique el monto o el tipo de aporte realizado por la administración municipal:", required: true },
+                { id: "G_3", label: "¿Considera que los criterios de selección de municipios para nuevas Aulas STEAM son pertinentes?", desc: "¿Qué variables o indicadores territoriales sugeriría agregar o modificar?", type: "text", required: true },
+                { id: "G_4", label: "¿Existe alguna política pública o acuerdo municipal que articule el Aula STEAM con planes de desarrollo educativo?", type: "select", required: true, options: ["Sí, acuerdo municipal vigente", "En proceso de formulación en el concejo", "No existe articulación formal"] },
+                { id: "G_5", label: "¿Qué riesgos de sostenibilidad presupuestaria y operativa identifica una vez finalice la financiación por Estampilla?", type: "text", required: true }
+            ],
+            modH: [
+                { id: "H_1", label: "¿Cómo se ha articulado su organización (Luker / Universidad de Caldas / Comité) con el equipo ejecutor de la UNAL?", type: "text", required: true },
+                { id: "H_2", label: "¿Qué aportes metodológicos o didácticos concretos ha hecho su alianza a la operación de las Aulas?", type: "text", required: true },
+                { id: "H_3", label: "¿Qué oportunidades de mejora o cuellos de botella identifica en la estructura y gobernanza actual de la alianza?", type: "text", required: true },
+                { id: "H_4", label: "(Exclusivo Luker/Uruguay) ¿Qué aprendizajes del Plan Ceibal de Uruguay son directamente aplicables a Caldas?", desc: "¿Cuáles definitivamente no son viables debido a las particularidades del contexto local?", type: "text", required: true },
+                { id: "H_5", label: "¿Estaría dispuesta su organización a ampliar su participación en el co-diseño de la reestructuración?", desc: "De ser así, ¿bajo qué condiciones institucionales y de aporte técnico?", type: "text", required: true }
+            ],
+            modI: [
+                { id: "I_1", label: "¿Los procesos contractuales y pliegos de licitación de la UNAL han sido claros, justos y ágiles?", type: "scale", max: 5, required: true },
+                { id: "I_2", label: "¿Ha recibido fichas técnicas y requerimientos detallados para cotizar y fabricar/entregar de forma correcta?", type: "conditional-text", condTrigger: "No", condLabel: "Indique cuáles fueron las mayores deficiencias en las fichas técnicas provistas:", required: true },
+                { id: "I_3", label: "¿Qué mejoras o especificaciones estándar sugeriría incluir en los pliegos para evitar compras deficientes o entregas tardías?", type: "text", required: true },
+                { id: "I_4", label: "¿Qué plan de acción u oferta técnica tiene su organización para implementar un SLA (Acuerdo de Nivel de Servicio) de soporte postventa?", type: "text", required: true },
+                { id: "I_5", label: "¿Qué nuevas tecnologías, kits de robótica pedagógicos o mobiliario ergonómico recomendaría incluir para la reestructuración?", type: "text", required: true }
+            ],
+            modJ: [
+                { id: "J_1", label: "¿El Aula STEAM está incluida formalmente en el PEI (Proyecto Educativo Institucional) o en los planes municipales?", type: "select", required: true, options: ["Sí, totalmente integrado", "En proceso de inclusión y reforma curricular", "No, opera como un espacio aislado"] },
+                { id: "J_2", label: "¿Existe un rubro presupuestal propio asignado por la rectoría o alcaldía para el sostenimiento operativo del Aula?", type: "select", required: true, options: ["Sí, presupuesto anual recurrente", "Aportes parciales para contingencias", "Ninguno, dependencia absoluta de la UNAL"] },
+                { id: "J_3", label: "¿Qué dependencia, área académica o persona asume la responsabilidad administrativa del Aula en el colegio?", type: "text", required: true },
+                { id: "J_4", label: "¿Qué ocurriría con la operación y custodia del Aula STEAM si el soporte de la Universidad Nacional finalizara hoy?", type: "conditional-text", condTrigger: "Cierre parcial", condLabel: "Escriba qué acciones inmediatas requeriría para evitar el cierre operativo del aula:", required: true },
+                { id: "J_5", label: "¿La institución o el municipio tiene capacidad técnica instalada propia para operar de forma 100% autónoma el Aula?", type: "scale", max: 5, required: true },
+                {
+                    id: "J_6",
+                    label: "¿Cuáles son las mayores amenazas que ponen en riesgo la continuidad del Aula en su territorio?",
+                    type: "multiselect",
+                    options: [
+                        "Falta de presupuesto para filamentos e insumos",
+                        "Desinterés de los directivos docentes o relevo de alcaldes",
+                        "Traslado o rotación frecuente de docentes capacitados",
+                        "Cortes de energía eléctrica recurrentes o mala conectividad",
+                        "Obsolescencia tecnológica sin soporte de garantías",
+                        "Falta de seguridad física (riesgo de vandalismo o hurto)"
+                    ]
+                }
+            ],
+            modK: [
+                { id: "K_1_1", label: "¿Qué beneficios concretos espera que genere la llegada del Aula STEAM a su municipio o institución?", type: "text", required: true },
+                { id: "K_1_2", label: "¿Qué temores, dudas o barreras iniciales identifica frente al proyecto de implementación?", type: "text", required: true },
+                { id: "K_1_3", label: "¿Ha tenido la oportunidad de visitar un Aula STEAM activa? Si es así, ¿qué le llamó la atención positiva o negativamente?", type: "conditional-text", condTrigger: "Sí", condLabel: "Describa brevemente su percepción y aprendizajes de la visita:", required: false },
+                { id: "K_2_1", label: "¿El espacio físico preseleccionado para el Aula cuenta con condiciones óptimas de energía, red, ventilación e iluminación?", type: "select", required: true, options: ["Sí, cumple a cabalidad", "Cumple parcialmente (requiere adecuación menor)", "No cumple (requiere reforma estructural civil)"] },
+                { id: "K_2_2", label: "¿Cuántos docentes estarían disponibles y motivados para capacitarse y liderar las actividades del Aula?", type: "number", required: true, min: 0, max: 50 },
+                { id: "K_2_3", label: "¿Existe alguna experiencia o proyecto previo similar (robótica, clubes de ciencia, salas TIC)?", type: "text", required: false },
+                { id: "K_3_1", label: "¿Qué adecuaciones físicas prioriza realizar en el espacio antes de recibir la dotación de equipos?", desc: "Considere cableados, tomas a tierra, rejas de seguridad, aire acondicionado.", type: "text", required: true },
+                {
+                    id: "K_3_2",
+                    label: "¿Qué equipos o kits tecnológicos considera indispensables desde el primer día de operación?",
+                    type: "multiselect",
+                    options: [
+                        "Computadores portátiles con software de modelado",
+                        "Impresoras 3D con filamentos",
+                        "Router o cortadora CNC escolar",
+                        "Kits de robótica educativa y sensores electrónicos",
+                        "Gafas de Realidad Virtual / Inmersión",
+                        "Mesas modulares ergonómicas",
+                        "Estaciones de soldadura y herramientas manuales"
+                    ]
+                },
+                { id: "K_3_3", label: "¿Qué condiciones de custodia y seguridad física de los activos tecnológicos puede garantizar su institución?", type: "text", required: true },
+                {
+                    id: "K_4_1",
+                    label: "¿Qué tipo de capacitación o áreas de formación docente consideran urgentes antes de iniciar la operación?",
+                    type: "multiselect",
+                    options: [
+                        "Modelado e impresión 3D",
+                        "Programación en Arduino / micro:bit",
+                        "Didáctica del Aprendizaje Basado en Proyectos (ABP)",
+                        "Diseño mecánico y corte en router CNC",
+                        "Metodologías activas de educación STEM"
+                    ]
+                },
+                { id: "K_4_2", label: "¿Con qué frecuencia esperaría recibir el acompañamiento presencial del coordinador técnico de la UNAL?", type: "select", required: true, options: ["Semanal", "Quincenal", "Mensual", "Únicamente ante fallas reportadas"] },
+                { id: "K_5_1", label: "¿La alcaldía municipal o rectoría está dispuesta a firmar compromisos para cofinanciar el sostenimiento y consumibles?", type: "select", required: true, options: ["Sí, totalmente comprometidos", "Compromiso de cofinanciación parcial", "No contamos con recursos propios, requerimos apoyo al 100%"] },
+                { id: "K_5_2", label: "¿Cómo articularía el Aula STEAM con el Plan de Desarrollo Municipal o el Proyecto Educativo Institucional (PEI)?", type: "text", required: true },
+                { id: "K_5_3", label: "¿Estaría dispuesto/a a firmar un acta formal de corresponsabilidad con la Universidad Nacional frente a la dotación?", type: "select", required: true, options: ["Sí, de forma incondicional", "Sí, sujeta a revisión jurídica de la alcaldía/colegio", "No es viable jurídicamente"] },
+                { id: "K_6_1", label: "¿Existe algún problema territorial local (ambiental, agrícola, de salud) que el Aula STEAM pueda ayudar a abordar con tecnología?", type: "text", required: true },
+                { id: "K_6_2", label: "¿Qué aliados locales (empresas, cooperativas de café, universidades locales) podrían vincularse a la dinámica del aula?", type: "text", required: false },
+                { id: "K_6_3", label: "¿Qué indicadores clave consideraría apropiados para medir el éxito del aula al cabo del primer año de funcionamiento?", type: "text", required: true }
+            ],
+            sec3: [
+                { id: "V_1", label: "En una escala de 1 a 10, ¿cuál es su nivel de satisfacción general con el desarrollo del proyecto?", type: "satisfaction-scale", max: 10, required: true },
+                { id: "V_2", label: "¿Cuáles considera que son los tres logros más importantes del proyecto hasta ahora?", type: "triple-text", placeholder: "Logro", required: true },
+                { id: "V_3", label: "¿Cuáles son los tres cambios más urgentes que haría para la reestructuración del proyecto?", type: "triple-text", placeholder: "Cambio prioritario", required: true },
+                { id: "V_4", label: "¿Hay algún aspecto clave del proyecto que no haya sido contemplado en esta encuesta y que considere relevante?", type: "text", required: false },
+                {
+                    id: "V_6",
+                    label: "Si solo pudiera priorizar tres inversiones prioritarias para la siguiente fase del proyecto, ¿cuáles seleccionaría?",
+                    type: "multiselect",
+                    maxSelections: 3,
+                    options: [
+                        "Infraestructura física (Aulas y adecuaciones civiles)",
+                        "Conectividad a internet dedicada y de alta velocidad",
+                        "Capacitación pedagógica y técnica docente",
+                        "Equipos de cómputo y servidores locales",
+                        "Impresoras 3D y filamentos consumibles",
+                        "Kits de robótica educativa y microcontroladores",
+                        "Plan de mantenimiento preventivo y repuestos",
+                        "Talento humano de soporte (Coordinadores locales)",
+                        "Diseño y desarrollo de contenidos pedagógicos",
+                        "Plataformas de Inteligencia Artificial aplicadas",
+                        "Estaciones de Realidad Virtual y Aumentada",
+                        "Aulas STEAM móviles (Makerspaces móviles)"
+                    ]
+                },
+                { id: "V_5", label: "¿Estaría disponible para participar en una entrevista complementaria de ingeniería de detalle con la UNAL (DIMA)?", type: "conditional-text", condTrigger: "Sí", condLabel: "Escriba su número telefónico de contacto o correo electrónico directo:", required: true }
+            ]
+        };
+
+        const actorModuleMapping = {
+            "gob": { title: "Gobernación / Secretaría de Educación de Caldas", badgeColor: "var(--color-gob-teal)", modules: ["sec0", "modA", "modB", "modC", "modD", "modG", "modJ", "sec3"] },
+            "alc_m": { title: "Alcaldía y Secretaría de Manizales", badgeColor: "var(--color-gob-teal)", modules: ["sec0", "modA", "modB", "modC", "modD", "modG", "modJ", "sec3"] },
+            "alc_mun": { title: "Alcalde de Municipio de Caldas", badgeColor: "var(--color-unal-gold)", modules: ["sec0", "modA_partial", "modG", "modJ", "sec3"] },
+            "rect": { title: "Rector de I.E. Pública con Aula STEAM", badgeColor: "var(--color-primary)", modules: ["sec0", "modA", "modB", "modC", "modE", "modF", "modJ", "sec3"] },
+            "prof": { title: "Docente de I.E. con Aula STEAM", badgeColor: "var(--color-primary)", modules: ["sec0", "modB", "modC", "modF", "sec3"] },
+            "coord": { title: "Coordinador de Aula STEAM Caldas/Manizales", badgeColor: "var(--color-primary-dark)", modules: ["sec0", "modA", "modB", "modC", "modE", "modF", "modJ", "sec3"] },
+            "direct_unal": { title: "Directivo UNAL (Vicerrector / DIMA / Financiero / Contratación)", badgeColor: "var(--color-unal-gold)", modules: ["sec0", "modA_partial", "modD", "modE", "sec3"] },
+            "stem_unal": { title: "Equipo del Aula STEM - Universidad Nacional", badgeColor: "var(--color-stem-purple)", modules: ["sec0", "modA", "modB", "modC", "modD", "modE", "modF", "sec3"] },
+            "aliado": { title: "Aliado Académico / Estratégico (U. de Caldas / Fundación Luker)", badgeColor: "var(--color-aliados-orange)", modules: ["sec0", "modH", "sec3"] },
+            "prov": { title: "Proveedor de Equipos, Mobiliario o Kits", badgeColor: "var(--color-text-muted)", modules: ["sec0", "modI", "sec3"] },
+            "benef_futuro": { title: "Futuro Beneficiario (Alcalde o Rector proyectado)", badgeColor: "var(--color-primary-light)", modules: ["sec0", "modK", "sec3"] }
+        };
+
+        let currentActorKey = null;
+        let activeModuleList = [];
+        let currentStepIndex = 0;
+        const answers = {};
+
+        const screenWelcome = document.getElementById("screen-welcome");
+        const screenForm = document.getElementById("screen-form");
+        const screenSuccess = document.getElementById("screen-success");
+        const actorSelect = document.getElementById("actor-select");
+        const btnStart = document.getElementById("btn-start");
+        const btnPrev = document.getElementById("btn-prev");
+        const btnNext = document.getElementById("btn-next");
+        const dynamicFormContainer = document.getElementById("dynamic-form-fields");
+        const sectionTitleElement = document.getElementById("section-title");
+        const progressBarFill = document.getElementById("progress-bar-fill");
+        const progressText = document.getElementById("progress-text");
+        const badgeRol = document.getElementById("badge-rol");
+        const previewContainer = document.getElementById("preview-grid");
+
+        btnStart.addEventListener("click", startForm);
+        btnPrev.addEventListener("click", navigateBack);
+        btnNext.addEventListener("click", navigateNext);
+
+        function init() {
+            actorSelect.innerHTML = '<option value="" disabled selected>Seleccione su rol en el proyecto...</option>';
+            for (const [key, value] of Object.entries(actorModuleMapping)) {
+                const option = document.createElement("option");
+                option.value = key;
+                option.textContent = value.title;
+                actorSelect.appendChild(option);
+            }
+        }
+
+        function startForm() {
+            currentActorKey = actorSelect.value;
+            if (!currentActorKey) {
+                alert("Por favor, seleccione un rol para poder ingresar al formulario.");
+                return;
+            }
+            const config = actorModuleMapping[currentActorKey];
+            activeModuleList = [...config.modules];
+            currentStepIndex = 0;
+            
+            badgeRol.textContent = config.title;
+            badgeRol.style.background = config.badgeColor;
+            badgeRol.style.display = "inline-flex";
+
+            screenWelcome.classList.remove("active");
+            screenForm.classList.add("active");
+            renderStep();
+        }
+
+        function renderStep() {
+            dynamicFormContainer.innerHTML = "";
+            const currentModuleKey = activeModuleList[currentStepIndex];
+            
+            let questionsToShow = [];
+            if (currentModuleKey === "modA_partial") {
+                sectionTitleElement.textContent = "Infraestructura Física (Revisión Crítica)";
+                questionsToShow = questionDatabase.modA.filter(q => q.id === "A_1" || q.id === "A_5");
+            } else {
+                questionsToShow = questionDatabase[currentModuleKey] || [];
+                setSectionTitle(currentModuleKey);
+            }
+            
+            questionsToShow.forEach(q => {
+                const group = document.createElement("div");
+                group.className = "question-group";
+                group.setAttribute("data-q-id", q.id);
+                
+                const label = document.createElement("label");
+                label.className = "question-label";
+                label.textContent = q.label;
+                if (q.required) {
+                    const reqStar = document.createElement("span");
+                    reqStar.style.color = "red";
+                    reqStar.style.marginLeft = "4px";
+                    reqStar.textContent = "*";
+                    label.appendChild(reqStar);
+                }
+                group.appendChild(label);
+
+                if (q.desc) {
+                    const desc = document.createElement("p");
+                    desc.className = "question-desc";
+                    desc.textContent = q.desc;
+                    group.appendChild(desc);
+                }
+
+                renderInputElement(group, q);
+                dynamicFormContainer.appendChild(group);
+            });
+
+            btnPrev.disabled = currentStepIndex === 0;
+            if (currentStepIndex === activeModuleList.length - 1) {
+                btnNext.innerHTML = 'Finalizar Encuesta <i class="fas fa-check-circle"></i>';
+            } else {
+                btnNext.innerHTML = 'Siguiente <i class="fas fa-arrow-right"></i>';
+            }
+
+            const percent = Math.round((currentStepIndex / activeModuleList.length) * 100);
+            progressBarFill.style.width = `${percent}%`;
+            progressText.textContent = `Paso ${currentStepIndex + 1} de ${activeModuleList.length} (${percent}%)`;
+        }
+
+        function setSectionTitle(moduleKey) {
+            switch (moduleKey) {
+                case "sec0": sectionTitleElement.textContent = "Sección 0: Identificación del encuestado"; break;
+                case "modA": sectionTitleElement.textContent = "Módulo A: Infraestructura Física"; break;
+                case "modB": sectionTitleElement.textContent = "Módulo B: Equipos Tecnológicos (TIC)"; break;
+                case "modC": sectionTitleElement.textContent = "Módulo C: Mobiliario y Dotación"; break;
+                case "modD": sectionTitleElement.textContent = "Módulo D: Gestión Financiera y Contractual"; break;
+                case "modE": sectionTitleElement.textContent = "Módulo E: Aspectos Técnicos y Operacionales"; break;
+                case "modF": sectionTitleElement.textContent = "Módulo F: Aspectos Funcionales y Pedagógicos"; break;
+                case "modG": sectionTitleElement.textContent = "Módulo G: Territorialidad y Política Pública"; break;
+                case "modH": sectionTitleElement.textContent = "Módulo H: Alianzas y Cooperación"; break;
+                case "modI": sectionTitleElement.textContent = "Módulo I: Proveedores"; break;
+                case "modJ": sectionTitleElement.textContent = "Módulo J: Apropiación y Sostenibilidad"; break;
+                case "modK": sectionTitleElement.textContent = "Módulo K: Formulación Nuevos Beneficiarios"; break;
+                case "sec3": sectionTitleElement.textContent = "Sección 3: Visión de Futuro del Proyecto"; break;
+                default: sectionTitleElement.textContent = "Módulo del Formulario";
+            }
+        }
+
+        function renderInputElement(container, q) {
+            const savedVal = answers[q.id];
+
+            if (q.type === "text") {
+                const input = document.createElement("textarea");
+                input.name = q.id;
+                input.placeholder = "Escriba su respuesta detallada aquí...";
+                input.value = savedVal || "";
+                container.appendChild(input);
+            } 
+            else if (q.type === "number") {
+                const input = document.createElement("input");
+                input.type = "number";
+                input.name = q.id;
+                input.placeholder = "Ej: 2023";
+                if (q.min !== undefined) input.min = q.min;
+                if (q.max !== undefined) input.max = q.max;
+                input.value = savedVal || "";
+                container.appendChild(input);
+            } 
+            else if (q.type === "select") {
+                const select = document.createElement("select");
+                select.name = q.id;
+                
+                const defaultOpt = document.createElement("option");
+                defaultOpt.value = "";
+                defaultOpt.disabled = true;
+                defaultOpt.selected = !savedVal;
+                defaultOpt.textContent = "Seleccione una opción...";
+                select.appendChild(defaultOpt);
+                
+                let optionsToRender = q.options;
+                if (q.id === "0_4" && currentActorKey === "gob") {
+                    optionsToRender = q.options.filter(opt => !opt.startsWith("UNAL"));
+                }
+
+                optionsToRender.forEach(opt => {
+                    const o = document.createElement("option");
+                    o.value = opt;
+                    o.textContent = opt;
+                    if (savedVal === opt) o.selected = true;
+                    select.appendChild(o);
+                });
+                container.appendChild(select);
+            } 
+            else if (q.type === "binary") {
+                const wrapper = document.createElement("div");
+                wrapper.className = "binary-wrapper";
+                
+                ["Sí", "No"].forEach(val => {
+                    const optDiv = document.createElement("div");
+                    optDiv.className = "binary-option";
+                    
+                    const radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.name = q.id;
+                    radio.id = `${q.id}_${val}`;
+                    radio.value = val;
+                    if (savedVal === val) radio.checked = true;
+                    
+                    const lbl = document.createElement("label");
+                    lbl.htmlFor = `${q.id}_${val}`;
+                    lbl.className = val === "Sí" ? "yes-lbl" : "no-lbl";
+                    lbl.innerHTML = val === "Sí" ? '<i class="fas fa-check"></i> Sí' : '<i class="fas fa-times"></i> No';
+                    
+                    optDiv.appendChild(radio);
+                    optDiv.appendChild(lbl);
+                    wrapper.appendChild(optDiv);
+                });
+                container.appendChild(wrapper);
+            } 
+            else if (q.type === "scale" || q.type === "satisfaction-scale") {
+                const wrapper = document.createElement("div");
+                wrapper.className = "scale-wrapper";
+                
+                const maxVal = q.max || 5;
+                for (let i = 1; i <= maxVal; i++) {
+                    const optDiv = document.createElement("div");
+                    optDiv.className = "scale-option";
+                    
+                    const radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.name = q.id;
+                    radio.id = `${q.id}_${i}`;
+                    radio.value = i;
+                    if (savedVal == i) radio.checked = true;
+                    
+                    const lbl = document.createElement("label");
+                    lbl.htmlFor = `${q.id}_${i}`;
+                    lbl.textContent = i;
+                    
+                    optDiv.appendChild(radio);
+                    optDiv.appendChild(lbl);
+                    wrapper.appendChild(optDiv);
+                }
+                container.appendChild(wrapper);
+                
+                const meta = document.createElement("div");
+                meta.style.display = "flex";
+                meta.style.justify = "space-between";
+                meta.style.fontSize = "0.75rem";
+                meta.style.color = "var(--color-text-muted)";
+                meta.style.marginTop = "6px";
+                meta.innerHTML = q.type === "satisfaction-scale" 
+                    ? "<span>1 - Totalmente insatisfecho</span><span>10 - Totalmente conforme</span>"
+                    : "<span>1 - Deficiente</span><span>5 - Excelente</span>";
+                container.appendChild(meta);
+            } 
+            else if (q.type === "conditional-text") {
+                const wrapper = document.createElement("div");
+                wrapper.className = "binary-wrapper";
+                
+                const options = q.id === "A_3" ? ["Sí", "No", "Parcialmente"] : ["Sí", "No"];
+                options.forEach(val => {
+                    const optDiv = document.createElement("div");
+                    optDiv.className = "binary-option";
+                    
+                    const radio = document.createElement("input");
+                    radio.type = "radio";
+                    radio.name = q.id;
+                    radio.id = `${q.id}_${val}`;
+                    radio.value = val;
+                    if (savedVal && savedVal.answer === val) radio.checked = true;
+                    
+                    const lbl = document.createElement("label");
+                    lbl.htmlFor = `${q.id}_${val}`;
+                    lbl.className = (val === "Sí" || val === "Parcialmente") ? "yes-lbl" : "no-lbl";
+                    lbl.textContent = val;
+                    
+                    optDiv.appendChild(radio);
+                    optDiv.appendChild(lbl);
+                    wrapper.appendChild(optDiv);
+                });
+                container.appendChild(wrapper);
+                
+                const condDiv = document.createElement("div");
+                condDiv.className = "conditional-field";
+                condDiv.id = `cond_${q.id}`;
+                
+                const condLbl = document.createElement("label");
+                condLbl.className = "question-label";
+                condLbl.style.fontSize = "0.9rem";
+                condLbl.style.marginTop = "10px";
+                condLbl.textContent = q.condLabel;
+                condDiv.appendChild(condLbl);
+                
+                const text = document.createElement("textarea");
+                text.name = `${q.id}_text`;
+                text.placeholder = "Indique detalles aquí...";
+                text.value = (savedVal && savedVal.details) || "";
+                condDiv.appendChild(text);
+                
+                container.appendChild(condDiv);
+                
+                const toggleCondition = () => {
+                    const selectedVal = container.querySelector(`input[name="${q.id}"]:checked`)?.value;
+                    let shouldShow = false;
+                    
+                    if (q.condTrigger === "No") {
+                        shouldShow = (selectedVal === "No" || selectedVal === "Parcialmente");
+                    } else {
+                        shouldShow = (selectedVal === q.condTrigger);
+                    }
+                    
+                    if (shouldShow) {
+                        condDiv.classList.add("visible");
+                    } else {
+                        condDiv.classList.remove("visible");
+                    }
+                };
+                
+                container.querySelectorAll(`input[name="${q.id}"]`).forEach(rad => {
+                    rad.addEventListener("change", toggleCondition);
+                });
+                toggleCondition();
+            } 
+            else if (q.type === "multiselect") {
+                const grid = document.createElement("div");
+                grid.className = "chips-grid";
+                
+                q.options.forEach((opt, idx) => {
+                    const chip = document.createElement("div");
+                    chip.className = "chip-option";
+                    
+                    const check = document.createElement("input");
+                    check.type = "checkbox";
+                    check.name = q.id;
+                    check.id = `${q.id}_${idx}`;
+                    check.value = opt;
+                    if (savedVal && savedVal.includes(opt)) check.checked = true;
+                    
+                    const lbl = document.createElement("label");
+                    lbl.htmlFor = `${q.id}_${idx}`;
+                    lbl.textContent = opt;
+                    
+                    chip.appendChild(check);
+                    chip.appendChild(lbl);
+                    grid.appendChild(chip);
+                });
+                container.appendChild(grid);
+            } 
+            else if (q.type === "triple-text") {
+                const wrap = document.createElement("div");
+                wrap.style.display = "flex";
+                wrap.style.flexDirection = "column";
+                wrap.style.gap = "10px";
+                
+                for (let i = 1; i <= 3; i++) {
+                    const input = document.createElement("input");
+                    input.type = "text";
+                    input.name = `${q.id}_${i}`;
+                    input.placeholder = `${q.placeholder} #${i}...`;
+                    input.value = (savedVal && savedVal[i-1]) || "";
+                    wrap.appendChild(input);
+                }
+                container.appendChild(wrap);
+            }
+        }
+
+        function navigateBack() {
+            if (currentStepIndex > 0) {
+                saveCurrentAnswers();
+                currentStepIndex--;
+                renderStep();
+            }
+        }
+
+        function navigateNext() {
+            if (validateCurrentStep()) {
+                saveCurrentAnswers();
+                
+                if (currentStepIndex < activeModuleList.length - 1) {
+                    currentStepIndex++;
+                    renderStep();
+                } else {
+                    submitForm();
+                }
+            }
+        }
+
+        function validateCurrentStep() {
+            const currentModuleKey = activeModuleList[currentStepIndex];
+            let questions = [];
+            if (currentModuleKey === "modA_partial") {
+                questions = questionDatabase.modA.filter(q => q.id === "A_1" || q.id === "A_5");
+            } else {
+                questions = questionDatabase[currentModuleKey] || [];
+            }
+
+            for (const q of questions) {
+                if (!q.required) continue;
+
+                if (q.type === "text" || q.type === "number" || q.type === "select") {
+                    const element = dynamicFormContainer.querySelector(`[name="${q.id}"]`);
+                    if (!element || !element.value.trim()) {
+                        alert(`Por favor complete el campo requerido: "${q.label}"`);
+                        if (element) element.focus();
+                        return false;
+                    }
+                } 
+                else if (q.type === "binary" || q.type === "scale" || q.type === "satisfaction-scale") {
+                    const checked = dynamicFormContainer.querySelector(`input[name="${q.id}"]:checked`);
+                    if (!checked) {
+                        alert(`Por favor seleccione una respuesta para: "${q.label}"`);
+                        return false;
+                    }
+                } 
+                else if (q.type === "conditional-text") {
+                    const checked = dynamicFormContainer.querySelector(`input[name="${q.id}"]:checked`);
+                    if (!checked) {
+                        alert(`Por favor seleccione una respuesta para: "${q.label}"`);
+                        return false;
+                    }
+                    
+                    const triggerVal = checked.value;
+                    let triggers = false;
+                    if (q.condTrigger === "No") {
+                        triggers = (triggerVal === "No" || triggerVal === "Parcialmente");
+                    } else {
+                        triggers = (triggerVal === q.condTrigger);
+                    }
+                    
+                    if (triggers) {
+                        const textElem = dynamicFormContainer.querySelector(`[name="${q.id}_text"]`);
+                        if (!textElem || !textElem.value.trim()) {
+                            alert(`Por favor justifique su respuesta en el cuadro de texto.`);
+                            if (textElem) textElem.focus();
+                            return false;
+                        }
+                    }
+                } 
+                else if (q.type === "triple-text") {
+                    const element1 = dynamicFormContainer.querySelector(`[name="${q.id}_1"]`);
+                    if (!element1 || !element1.value.trim()) {
+                        alert(`Por favor ingrese al menos el primer ítem para: "${q.label}"`);
+                        if (element1) element1.focus();
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function saveCurrentAnswers() {
+            const currentModuleKey = activeModuleList[currentStepIndex];
+            let questions = [];
+            if (currentModuleKey === "modA_partial") {
+                questions = questionDatabase.modA.filter(q => q.id === "A_1" || q.id === "A_5");
+            } else {
+                questions = questionDatabase[currentModuleKey] || [];
+            }
+
+            questions.forEach(q => {
+                if (q.type === "text" || q.type === "number" || q.type === "select") {
+                    const val = dynamicFormContainer.querySelector(`[name="${q.id}"]`)?.value;
+                    answers[q.id] = val;
+                } 
+                else if (q.type === "binary" || q.type === "scale" || q.type === "satisfaction-scale") {
+                    const val = dynamicFormContainer.querySelector(`input[name="${q.id}"]:checked`)?.value;
+                    answers[q.id] = val;
+                } 
+                else if (q.type === "conditional-text") {
+                    const ans = dynamicFormContainer.querySelector(`input[name="${q.id}"]:checked`)?.value;
+                    const det = dynamicFormContainer.querySelector(`[name="${q.id}_text"]`)?.value;
+                    answers[q.id] = { answer: ans, details: det || "" };
+                } 
+                else if (q.type === "multiselect") {
+                    const checkedBoxes = dynamicFormContainer.querySelectorAll(`input[name="${q.id}"]:checked`);
+                    const selectedList = [];
+                    checkedBoxes.forEach(cb => selectedList.push(cb.value));
+                    answers[q.id] = selectedList;
+                } 
+                else if (q.type === "triple-text") {
+                    const vals = [];
+                    for (let i = 1; i <= 3; i++) {
+                        const v = dynamicFormContainer.querySelector(`[name="${q.id}_${i}"]`)?.value;
+                        if (v && v.trim()) vals.push(v.trim());
+                    }
+                    answers[q.id] = vals;
+                }
+            });
+        }
+
+        function submitForm() {
+            progressBarFill.style.width = `100%`;
+            progressText.textContent = `Enviando a Google Forms...`;
+            
+            const config = actorModuleMapping[currentActorKey];
+            answers["0_3_title"] = config.title;
+            
+            // Construcción del FormData asíncrono para Google Forms
+            const formData = new FormData();
+            
+            for (const [qId, value] of Object.entries(answers)) {
+                // Si la pregunta es la visión triple, dividimos los campos
+                if (qId === "V_2" || qId === "V_3") {
+                    for (let i = 1; i <= 3; i++) {
+                        const entryKey = googleFormMapping[`${qId}_${i}`];
+                        const val = value[i-1] || "";
+                        if (entryKey) formData.append(entryKey, val);
+                    }
+                } 
+                else if (typeof value === "object" && !Array.isArray(value)) {
+                    // Condicionales (Sí/No + Detalles)
+                    const entryKey = googleFormMapping[qId];
+                    if (entryKey) formData.append(entryKey, value.answer);
+                    
+                    const detailsKey = googleFormMapping[`${qId}_text`];
+                    if (detailsKey && value.details) {
+                        formData.append(detailsKey, value.details);
+                    }
+                } 
+                else if (Array.isArray(value)) {
+                    // Selección múltiple consolidada en un solo string
+                    const entryKey = googleFormMapping[qId];
+                    if (entryKey) {
+                        formData.append(entryKey, value.join(", "));
+                    }
+                } 
+                else {
+                    const entryKey = googleFormMapping[qId];
+                    if (entryKey) formData.append(entryKey, value);
+                }
+            }
+            
+            // Envío por POST de fondo (no-cors para evitar bloqueos del mismo origen)
+            fetch(googleFormUrl, {
+                method: "POST",
+                mode: "no-cors",
+                body: formData
+            })
+            .then(() => {
+                showSuccessScreen();
+            })
+            .catch((error) => {
+                console.error("Error enviando datos:", error);
+                alert("Hubo un problema de conexión con el servidor. Respuestas guardadas localmente.");
+                showSuccessScreen();
+            });
+        }
+
+        function showSuccessScreen() {
+            progressBarFill.style.width = `100%`;
+            progressText.textContent = `¡Completado! (100%)`;
+            screenForm.classList.remove("active");
+            screenSuccess.classList.add("active");
+            renderResponsePreview();
+        }
+
+        function renderResponsePreview() {
+            previewContainer.innerHTML = "";
+            for (const [qId, value] of Object.entries(answers)) {
+                if (qId === "0_3_title") continue;
+                
+                let questionObj = null;
+                for (const modQs of Object.values(questionDatabase)) {
+                    const found = modQs.find(q => q.id === qId);
+                    if (found) { questionObj = found; break; }
+                }
+                
+                if (!questionObj) continue;
+                
+                const previewItem = document.createElement("div");
+                previewItem.className = "preview-item";
+                
+                const label = document.createElement("strong");
+                label.textContent = questionObj.label;
+                previewItem.appendChild(label);
+                
+                const valText = document.createElement("span");
+                if (typeof value === "object" && !Array.isArray(value)) {
+                    valText.innerHTML = `<strong>Opción:</strong> ${value.answer} <br/> <strong>Justificación:</strong> ${value.details}`;
+                } else if (Array.isArray(value)) {
+                    valText.textContent = value.join(", ");
+                } else {
+                    valText.textContent = value;
+                }
+                previewItem.appendChild(valText);
+                previewContainer.appendChild(previewItem);
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>

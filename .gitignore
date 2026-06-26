@@ -1,0 +1,9 @@
+# Word drafts
+*.docx
+
+# Python scripts
+*.py
+__pycache__/
+
+# Logs
+*.log
