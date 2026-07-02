@@ -1224,7 +1224,7 @@ const questionDatabase = {
         },
         {
             "id": "V_2",
-            "label": "¿Cuáles considera que deberían ser las prioridades más urgentes en la reestructuración del Proyecto Aulas STEAM?",
+            "label": "¿Cuáles considera que deberían ser las 3 prioridades más urgentes en la reestructuración del Proyecto Aulas STEAM?",
             "type": "multiselect",
             "required": true,
             "maxSelections": 3,
@@ -2137,9 +2137,12 @@ function submitForm() {
     
     for (const [qId, value] of Object.entries(answers)) {
         if (qId === "V_2" || qId === "V_3") {
-            const questionLabel = qId === "V_2" 
-                ? "¿Cuáles considera que son los tres logros más importantes del proyecto hasta ahora?"
-                : "¿Cuáles son los tres cambios más urgentes que haría para la reestructuración del proyecto?";
+            let questionObj = null;
+            for (const modQs of Object.values(questionDatabase)) {
+                const found = modQs.find(q => q.id === qId);
+                if (found) { questionObj = found; break; }
+            }
+            const questionLabel = questionObj ? questionObj.label : qId;
             
             for (let i = 1; i <= 3; i++) {
                 const val = (value && value[i-1]) || "";
