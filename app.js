@@ -472,7 +472,9 @@ const questionDatabase = {
                 "Mantenimientos preventivos",
                 "Otro"
             ]
-        },
+        }
+    ],
+    "sec2_direct_unal_prototipado": [
         {
             "id": "L_7",
             "label": "¿Cómo evalúa actualmente la capacidad operativa del Centro de Prototipado para atender procesos académicos, formativos y de innovación?",
@@ -1260,7 +1262,7 @@ const questionDatabase = {
             ]
         }
     ]
-};
+};;
 
 const actorModuleMapping = {
     "gob_alc": {
@@ -1298,6 +1300,7 @@ const actorModuleMapping = {
         "modules": [
             "sec0",
             "sec2_direct_unal",
+            "sec2_direct_unal_prototipado",
             "sec5_all"
         ]
     },
@@ -1349,7 +1352,7 @@ const actorModuleMapping = {
             "sec5_all"
         ]
     }
-};
+};;
 
 // State Variables
 // Google Sheets Web App Endpoint
@@ -1562,6 +1565,9 @@ function setSectionTitle(moduleKey) {
             break;
         case "sec2_direct_unal":
             sectionTitleElement.textContent = "Sección 2: Gestión Estratégica y Financiera (Directivo UNAL)";
+            break;
+        case "sec2_direct_unal_prototipado":
+            sectionTitleElement.textContent = "Sección 2.1: Centro de Prototipado (Directivo UNAL)";
             break;
         case "sec2_aliado":
             sectionTitleElement.textContent = "Sección 2: Alianzas y Cooperación (Aliados)";
