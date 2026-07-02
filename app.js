@@ -14,22 +14,6 @@ const questionDatabase = {
             "required": true
         },
         {
-            "id": "0_3",
-            "label": "Cargo o rol dentro del Proyecto",
-            "type": "select",
-            "required": true,
-            "options": [
-    "Gobernación de Caldas / Alcaldía de Manizales (Secretarías de Educación)",
-    "Rector(a)/Docente I.E con Aula STEAM",
-    "Coordinador de Aula STEAM Caldas/Manizales",
-    "Directivo UNAL (Vicerrector / DIMA / Financiero / Contratación)",
-    "Equipo Centro de Prototipado",
-    "Aliado Académico / Estratégico (U. de Caldas / Fundación Luker)",
-    "Proveedor de Equipos, Mobiliario o Kits",
-    "Futuro Beneficiario (Alcalde o Rector proyectado)"
-]
-        },
-        {
             "id": "0_4",
             "label": "Municipio o sede de referencia",
             "type": "select",
@@ -2147,6 +2131,10 @@ function submitForm() {
             respuestasLegibles[label] = value !== undefined ? value : "";
         }
     }
+    
+    // Agregar el Rol descriptivo del actor de forma programática para compatibilidad con la columna de Google Sheets
+    respuestasLegibles["Cargo o rol dentro del Proyecto"] = actorTitle;
+    answers["0_3"] = actorTitle;
     
     // Si la URL no está configurada, procedemos solo de forma offline / local
     if (!googleSheetsWebAppUrl || googleSheetsWebAppUrl.trim() === "") {
