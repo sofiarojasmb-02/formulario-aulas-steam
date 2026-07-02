@@ -14,26 +14,14 @@
  */
 
 function alEnviarFormulario(e) {
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  // Obtener la hoja de respuestas donde se registra la entrada
-  const hojaOrigen = e ? e.range.getSheet() : ss.getSheets()[0];
-  
-  let rangoFila;
-  let filaValores;
-  
-  if (e && e.range) {
-    rangoFila = e.range;
-    filaValores = rangoFila.getValues()[0];
-  } else {
-    // Si se ejecuta manualmente para hacer una prueba, toma la última fila registrada
-    const ultimaFila = hojaOrigen.getLastRow();
-    if (ultimaFila <= 1) {
-      Logger.log("No hay respuestas en la hoja principal para procesar.");
-      return;
-    }
-    rangoFila = hojaOrigen.getRange(ultimaFila, 1, 1, hojaOrigen.getLastColumn());
-    filaValores = rangoFila.getValues()[0];
+  if (!e || !e.range) {
+    Logger.log("Ejecución sin datos de evento válidos (ej. ejecución manual). Cancelando procesamiento.");
+    return;
   }
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const hojaOrigen = e.range.getSheet();
+  const rangoFila = e.range;
+  const filaValores = rangoFila.getValues()[0];
   
   // 1. Buscar dinámicamente la columna del Actor "Rol descriptivo (Actor)"
   const encabezados = hojaOrigen.getRange(1, 1, 1, hojaOrigen.getLastColumn()).getValues()[0];
@@ -54,18 +42,15 @@ function alEnviarFormulario(e) {
   
   // 3. Mapa de traducción para nombres cortos de pestañas (Límite estricto de 31 caracteres en Google Sheets)
   const MAPA_ACTORES = {
-    "Gobernación / Secretaría de Educación de Caldas": "Gobernación Caldas",
-    "Alcaldía y Secretaría de Manizales": "Alcaldía Manizales",
-    "Alcalde de Municipio de Caldas": "Alcaldes Municipios",
-    "Rector de I.E. Pública con Aula STEAM": "Rectores",
-    "Docente de I.E. con Aula STEAM": "Docentes",
+    "Gobernación de Caldas / Alcaldía de Manizales (Secretarías de Educación)": "Gob Caldas - Alc Manizales",
+    "Directivo Docente (Rector) / Docente de I.E. con Aula STEAM": "Rectores y Docentes",
     "Coordinador de Aula STEAM Caldas/Manizales": "Coordinadores",
     "Directivo UNAL (Vicerrector / DIMA / Financiero / Contratación)": "Directivos UNAL",
-    "Equipo del Aula STEM - Universidad Nacional": "Equipo STEM UNAL",
+    "Equipo Centro de Prototipado": "Equipo Prototipado UNAL",
     "Aliado Académico / Estratégico (U. de Caldas / Fundación Luker)": "Aliados",
     "Proveedor de Equipos, Mobiliario o Kits": "Proveedores",
     "Futuro Beneficiario (Alcalde o Rector proyectado)": "Futuros Beneficiarios"
-  };
+};
   
   let nombrePestana = MAPA_ACTORES[valorActor.toString().trim()];
   if (!nombrePestana) {
@@ -110,12 +95,10 @@ function alEnviarFormulario(e) {
 function crearTriggerDeEnvio() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   
-  // Limpiar triggers antiguos de esta función para evitar ejecuciones múltiples
+  // Eliminar cualquier trigger existente del proyecto para evitar duplicados
   const triggers = ScriptApp.getProjectTriggers();
   for (let i = 0; i < triggers.length; i++) {
-    if (triggers[i].getHandlerFunction() === "alEnviarFormulario") {
-      ScriptApp.deleteTrigger(triggers[i]);
-    }
+    ScriptApp.deleteTrigger(triggers[i]);
   }
   
   // Crear el nuevo trigger para la acción onFormSubmit
