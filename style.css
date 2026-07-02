@@ -2,26 +2,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap');
 
 :root {
-    /* Color Palette derived from the project's concentric rings logo */
-    --color-primary: #4f46e5;       /* Royal Blue/Indigo (Core) */
-    --color-primary-light: #818cf8;
-    --color-primary-dark: #3730a3;
+    /* Color Palette derived from the RedSTEM+ logo */
+    --color-primary: #1794A5;       /* Teal/Cyan (Core) */
+    --color-primary-light: #4bb3c1;
+    --color-primary-dark: #0f6c7a;
     
-    --color-stem-purple: #5b21b6;   /* STEM Core Purple */
-    --color-stem-violet: #8b5cf6;
+    --color-stem-purple: #1b223c;   /* Dark navy/slate (Red) */
+    --color-stem-violet: #353f66;
     
     --color-gob-teal: #0d9488;      /* Gobernacion/Alcaldia Teal */
     --color-gob-teal-light: #2dd4bf;
     
-    --color-aliados-orange: #c2410c; /* Aliados Terracotta */
-    --color-aliados-orange-light: #ea580c;
+    --color-aliados-orange: #e99211; /* Circuit Orange */
+    --color-aliados-orange-light: #f2a104;
     
     --color-unal-gold: #b45309;     /* UNAL/Alcaldes Gold */
     --color-unal-yellow: #f59e0b;
     
-    --color-bg-dark: #0f172a;       /* Dark Mode Slate */
+    --color-bg-dark: #1b223c;       /* Dark Navy Slate */
     --color-bg-light: #f8fafc;
-    --color-text-dark: #0f172a;
+    --color-text-dark: #1b223c;
     --color-text-light: #f1f5f9;
     --color-text-muted: #64748b;
     
@@ -30,7 +30,7 @@
     
     --glass-bg: rgba(255, 255, 255, 0.85);
     --glass-border: rgba(255, 255, 255, 0.4);
-    --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.08);
+    --glass-shadow: 0 8px 32px 0 rgba(23, 148, 165, 0.08);
     
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -52,10 +52,10 @@ body {
     justify-content: center;
     align-items: center;
     background-image: 
-        radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.15) 0px, transparent 50%),
-        radial-gradient(at 50% 0%, rgba(139, 92, 246, 0.1) 0px, transparent 50%),
-        radial-gradient(at 100% 100%, rgba(13, 148, 136, 0.12) 0px, transparent 50%),
-        radial-gradient(at 0% 100%, rgba(245, 158, 11, 0.08) 0px, transparent 50%);
+        radial-gradient(at 0% 0%, rgba(23, 148, 165, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 0%, rgba(27, 34, 60, 0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(23, 148, 165, 0.1) 0px, transparent 50%),
+        radial-gradient(at 0% 100%, rgba(233, 146, 17, 0.06) 0px, transparent 50%);
     background-attachment: fixed;
     padding: 20px;
     overflow-x: hidden;
