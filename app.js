@@ -20,7 +20,7 @@ const questionDatabase = {
             "required": true,
             "options": [
     "Gobernación de Caldas / Alcaldía de Manizales (Secretarías de Educación)",
-    "Directivo Docente (Rector) / Docente de I.E. con Aula STEAM",
+    "Rector(a)/Docente I.E con Aula STEAM",
     "Coordinador de Aula STEAM Caldas/Manizales",
     "Directivo UNAL (Vicerrector / DIMA / Financiero / Contratación)",
     "Equipo Centro de Prototipado",
@@ -1252,7 +1252,7 @@ const actorModuleMapping = {
         ]
     },
     "rect_prof": {
-        "title": "Directivo Docente (Rector) / Docente de I.E. con Aula STEAM",
+        "title": "Rector(a)/Docente I.E con Aula STEAM",
         "badgeColor": "var(--color-primary)",
         "modules": [
             "sec0",

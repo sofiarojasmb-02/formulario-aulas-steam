@@ -43,7 +43,7 @@ function alEnviarFormulario(e) {
   // 3. Mapa de traducción para nombres cortos de pestañas (Límite estricto de 31 caracteres en Google Sheets)
   const MAPA_ACTORES = {
     "Gobernación de Caldas / Alcaldía de Manizales (Secretarías de Educación)": "Gob Caldas - Alc Manizales",
-    "Directivo Docente (Rector) / Docente de I.E. con Aula STEAM": "Rectores y Docentes",
+    "Rector(a)/Docente I.E con Aula STEAM": "Rectores y Docentes",
     "Coordinador de Aula STEAM Caldas/Manizales": "Coordinadores",
     "Directivo UNAL (Vicerrector / DIMA / Financiero / Contratación)": "Directivos UNAL",
     "Equipo Centro de Prototipado": "Equipo Prototipado UNAL",
