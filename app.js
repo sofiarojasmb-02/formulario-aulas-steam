@@ -51,7 +51,7 @@ const questionDatabase = {
         },
         {
             "id": "0_5",
-            "label": "¿Desde qué año está vinculado al proyecto?",
+            "label": "¿Desde qué año está vinculado/a al Proyecto Aulas STEAM?",
             "type": "number",
             "required": true,
             "min": 2015,
@@ -64,12 +64,106 @@ const questionDatabase = {
             "required": true
         }
     ],
+    "sec2_gob_alc": [
+        {
+            "id": "D_1",
+            "label": "¿Considera que el modelo actual de financiación mediante recursos de Estampilla responde adecuadamente a las necesidades reales de implementación, operación y sostenibilidad del Proyecto Aulas STEAM?",
+            "type": "scale",
+            "required": true
+        },
+        {
+            "id": "D_1_comment",
+            "label": "Comentarios opcionales sobre la financiación por Estampilla",
+            "type": "text",
+            "required": false
+        },
+        {
+            "id": "D_2",
+            "label": "¿El esquema actual de financiación permite proyectar la continuidad y crecimiento del Proyecto Aulas STEAM en el mediano y largo plazo?",
+            "type": "scale",
+            "required": true
+        },
+        {
+            "id": "D_3",
+            "label": "¿Desde su perspectiva, la inversión realizada mediante recursos de Estampilla genera un impacto suficientemente visible y justificable para su continuidad y fortalecimiento?",
+            "type": "scale",
+            "required": true
+        },
+        {
+            "id": "D_4",
+            "label": "¿Considera que el esquema actual de financiación y gestión del Proyecto Aulas STEAM aprovecha eficientemente los recursos disponibles?",
+            "type": "scale",
+            "required": true
+        },
+        {
+            "id": "D_4_comment",
+            "label": "Comentarios sobre el aprovechamiento de recursos",
+            "type": "text",
+            "required": false
+        },
+        {
+            "id": "D_5",
+            "label": "¿Qué tan necesario considera realizar ajustes al modelo actual de operación del Proyecto Aulas STEAM para fortalecer su impacto territorial?",
+            "type": "scale",
+            "required": true
+        },
+        {
+            "id": "D_5_1",
+            "label": "En caso de responder por debajo de 4, ¿Qué cambios recomendaría priorizar?",
+            "type": "text",
+            "required": false,
+            "dependsOn": {
+                "id": "D_5",
+                "values": [
+                    "1",
+                    "2",
+                    "3"
+                ]
+            }
+        },
+        {
+            "id": "D_6",
+            "label": "¿Qué beneficios visibles ha generado el Aula STEAM para la comunidad educativa y local?",
+            "type": "multiselect",
+            "required": true,
+            "maxSelections": 3,
+            "options": [
+                "Beneficios en los estudiantes: Incremento en la motivación y asistencia",
+                "Beneficios en los estudiantes: Desarrollo de habilidades técnicas",
+                "Beneficios en los estudiantes: Desarrollo de habilidades blandas",
+                "Beneficios en los estudiantes: Mejora en el rendimiento académico",
+                "Beneficios en los docentes y la institución: Innovación pedagógica",
+                "Beneficios en los docentes y la institución: Integración curricular",
+                "Beneficios en los docentes y la institución: Prestigio institucional",
+                "Beneficios en las familias y el entorno local: Inclusión de las familias",
+                "Beneficios en las familias y el entorno local: Proyectos con impacto comunitario",
+                "Beneficios en las familias y el entorno local: Acceso democrático a la tecnología",
+                "Sin beneficios visibles aún",
+                "Otro"
+            ]
+        },
+        {
+            "id": "D_7",
+            "label": "¿Qué riesgos de sostenibilidad identifica para el Proyecto Aulas STEAM una vez finalice la financiación por Estampilla?",
+            "type": "multiselect",
+            "required": true,
+            "options": [
+                "Falta de recursos financieros",
+                "Cambios administrativos o políticos",
+                "Baja apropiación institucional",
+                "Falta de mantenimiento y soporte técnico",
+                "Desactualización tecnológica",
+                "Sobrecarga del personal docente",
+                "Poca articulación entre actores",
+                "Otro"
+            ]
+        }
+    ],
     "sec1_rect_prof_coord": [
         {
             "id": "A_1",
-            "label": "¿Cómo califica las condiciones físicas actuales de las Aulas STEAM (espacio, ventilación, iluminación, accesibilidad)?",
+            "label": "¿Cómo califica las condiciones físicas actuales del Aula STEAM (espacio, ventilación, iluminación, accesibilidad) ?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
@@ -78,32 +172,35 @@ const questionDatabase = {
             "type": "multiselect",
             "required": true,
             "options": [
-                "Conectividad a internet lenta o inestable",
-                "Red eléctrica deficiente (tomacorrientes insuficientes o mal ubicados)",
-                "Iluminación deficiente o inadecuada",
-                "Adecuación de espacios (humedad, ventilación, espacio reducido)",
-                "Falta de seguridad física en el aula",
+                "Problemas eléctricos",
+                "Conectividad deficiente",
+                "Falta de ventilación",
+                "Espacios reducidos",
+                "Iluminación insuficiente",
+                "Deterioro del mobiliario",
                 "Otro"
             ]
         },
         {
             "id": "A_3",
             "label": "¿Las instalaciones eléctricas y de red son suficientes para el uso simultáneo de todos los equipos?",
-            "type": "conditional-text",
-            "condTrigger": "No",
-            "condLabel": "Justifique las razones por las cuales no son suficientes o son parcialmente suficientes:",
-            "required": true
+            "type": "select",
+            "required": true,
+            "options": [
+                "Sí",
+                "No",
+                "Parcialmente"
+            ]
         },
         {
             "id": "B_1",
             "label": "¿En qué medida considera que los equipos TIC disponibles (computadores, impresoras 3D, kits de robótica, etc.) son suficientes para cubrir la demanda actual?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
             "id": "B_1_1",
-            "label": "Si considera que hay alguna carencia, ¿qué tipo de equipo o tecnología hace falta?",
+            "label": "Si su respuesta anterior fue de 1 a 4, o si considera que hay alguna carencia, ¿qué tipo de equipo o tecnología hace falta?",
             "type": "multiselect",
             "required": false,
             "dependsOn": {
@@ -143,8 +240,8 @@ const questionDatabase = {
         },
         {
             "id": "B_2_1",
-            "label": "Si seleccionó \"Diaria\" o \"Semanal\", ¿cuál es el equipo que presenta fallas con mayor frecuencia?",
-            "type": "select",
+            "label": "¿Cuál es el equipo que presenta fallas con mayor frecuencia?",
+            "type": "multiselect",
             "required": false,
             "dependsOn": {
                 "id": "B_2",
@@ -159,6 +256,7 @@ const questionDatabase = {
                 "Kits de robótica",
                 "Equipos de conectividad (Wi-Fi / Red)",
                 "Proyectores / Dispositivos audiovisuales",
+                "Ninguno",
                 "Otro"
             ]
         },
@@ -181,45 +279,6 @@ const questionDatabase = {
         {
             "id": "C_3",
             "label": "¿Existen protocolos claros para el préstamo, organización y mantenimiento de materiales y equipos?",
-            "type": "scale",
-            "max": 5,
-            "required": true
-        },
-        {
-            "id": "C_3_comment",
-            "label": "Comentarios adicionales sobre los protocolos de préstamo y mantenimiento:",
-            "type": "text",
-            "required": false
-        }
-    ],
-    "sec1_aliado": [
-        {
-            "id": "N_1",
-            "label": "Desde su perspectiva, ¿qué tan pertinente ha sido el proyecto para las necesidades educativas y de innovación del territorio?",
-            "type": "scale",
-            "max": 5,
-            "required": true
-        },
-        {
-            "id": "N_2",
-            "label": "¿Qué impactos considera más relevantes en el desarrollo del proyecto? (Seleccione máximo 3 opciones)",
-            "type": "multiselect",
-            "required": true,
-            "maxSelections": 3,
-            "options": [
-                "Fortalecimiento de capacidades tecnológicas",
-                "Formación docente",
-                "Innovación educativa",
-                "Apropiación STEAM/STEM",
-                "Desarrollo de habilidades en estudiantes",
-                "Articulación institucional",
-                "Acceso a tecnologías emergentes",
-                "Otro"
-            ]
-        },
-        {
-            "id": "N_3",
-            "label": "¿Considera que el proyecto tiene potencial de crecimiento y continuidad en el territorio?",
             "type": "select",
             "required": true,
             "options": [
@@ -227,124 +286,115 @@ const questionDatabase = {
                 "No",
                 "Parcialmente"
             ]
-        },
-        {
-            "id": "N_4",
-            "label": "Desde su perspectiva externa, ¿cómo percibe la adecuación de los espacios y la infraestructura tecnológica del Aula STEAM?",
-            "type": "scale",
-            "max": 5,
-            "required": true
-        },
-        {
-            "id": "N_4_comment",
-            "label": "Comentarios adicionales sobre la adecuación física y tecnológica:",
-            "type": "text",
-            "required": false
         }
     ],
-    "sec2_gob_alc": [
+    "sec3_rect_prof_coord": [
         {
-            "id": "D_1",
-            "label": "¿Considera que el modelo actual de financiación mediante recursos de Estampilla responde adecuadamente a las necesidades reales de implementación, operación y sostenibilidad del proyecto?",
-            "type": "scale",
-            "max": 5,
-            "required": true
-        },
-        {
-            "id": "D_1_comment",
-            "label": "Comentarios sobre el modelo de financiación actual:",
-            "type": "text",
-            "required": false
-        },
-        {
-            "id": "D_2",
-            "label": "¿El esquema actual de financiación permite proyectar la continuidad y crecimiento del proyecto en el mediano y largo plazo?",
-            "type": "scale",
-            "max": 5,
-            "required": true
-        },
-        {
-            "id": "D_2_comment",
-            "label": "Comentarios sobre la continuidad y proyección a largo plazo:",
-            "type": "text",
-            "required": false
-        },
-        {
-            "id": "D_3_scale",
-            "label": "Desde su perspectiva, ¿la inversión realizada mediante recursos de Estampilla genera un impacto suficientemente visible y justificable para su continuidad y fortalecimiento?",
-            "type": "scale",
-            "max": 5,
-            "required": true
-        },
-        {
-            "id": "D_3_scale_comment",
-            "label": "Comentarios sobre el impacto de la inversión:",
-            "type": "text",
-            "required": false
-        },
-        {
-            "id": "D_4_scale",
-            "label": "¿Considera que el esquema actual de financiación y gestión del proyecto aprovecha eficientemente los recursos disponibles?",
-            "type": "scale",
-            "max": 5,
-            "required": true
-        },
-        {
-            "id": "D_4_scale_comment",
-            "label": "Comentarios sobre la eficiencia en la gestión de recursos:",
-            "type": "text",
-            "required": false
-        },
-        {
-            "id": "D_5_scale",
-            "label": "¿Qué tan necesario considera realizar ajustes al modelo actual de operación del proyecto para fortalecer su impacto territorial?",
-            "type": "scale",
-            "max": 5,
-            "required": true
-        },
-        {
-            "id": "D_5_scale_comment",
-            "label": "¿Qué cambios recomendaría priorizar?",
-            "type": "text",
-            "required": false
-        },
-        {
-            "id": "D_3_benefits",
-            "label": "¿Qué beneficios visibles ha generado el Aula STEAM para la comunidad educativa y local?",
-            "type": "multiselect",
+            "id": "E_1",
+            "label": "¿Existe un manual operativo o protocolo de uso del Aula STEAM y se utiliza efectivamente?",
+            "type": "select",
             "required": true,
             "options": [
-                "Incremento en la motivación y asistencia (Estudiantes)",
-                "Desarrollo de habilidades técnicas (Estudiantes)",
-                "Desarrollo de habilidades blandas (Estudiantes)",
-                "Mejora en el rendimiento académico (Estudiantes)",
-                "Innovación pedagógica (Docentes)",
-                "Integración curricular en la institución (Docentes)",
-                "Prestigio institucional para la escuela",
-                "Inclusión y participación de las familias",
-                "Proyectos con impacto comunitario y local",
-                "Acceso democrático a la tecnología en la comunidad",
-                "Sin beneficios visibles aún",
+                "Sí",
+                "No",
+                "En construcción",
+                "No sé"
+            ]
+        },
+        {
+            "id": "F_1",
+            "label": "¿Las actividades desarrolladas están alineadas con el currículo de la Institución Educativa?",
+            "type": "scale",
+            "required": true
+        },
+        {
+            "id": "F_2",
+            "label": "¿Existe una planificación de proyectos STEAM consolidada en el PEI o plan estratégico?",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Sí",
+                "No",
+                "En proceso",
+                "No sé"
+            ]
+        },
+        {
+            "id": "F_3",
+            "label": "Desde su experiencia, ¿Qué áreas del conocimiento se integran con mayor facilidad en las experiencias desarrolladas en el Aula STEAM?",
+            "type": "multiselect",
+            "required": true,
+            "maxSelections": 3,
+            "options": [
+                "Ciencias Naturales / Física / Biología",
+                "Tecnología e Informática",
+                "Matemáticas",
+                "Ingeniería / Robótica",
+                "Arte y Diseño",
+                "Programación y pensamiento computacional",
+                "Ciencias Sociales / Educación ambiental",
+                "Emprendimiento",
                 "Otro"
             ]
         },
         {
-            "id": "D_4_risks",
-            "label": "¿Qué riesgos de sostenibilidad identifica para el proyecto una vez finalice la financiación por Estampilla?",
+            "id": "F_3_1",
+            "label": "¿Qué áreas presentan mayores dificultades para integrarse de manera efectiva?",
+            "type": "multiselect",
+            "required": true,
+            "maxSelections": 3,
+            "options": [
+                "Matemáticas",
+                "Ciencias Sociales",
+                "Lenguaje",
+                "Arte y Diseño",
+                "Ciencias Naturales",
+                "Programación",
+                "Ingeniería / Robótica / Electrónica",
+                "Física / Química",
+                "Otro"
+            ]
+        },
+        {
+            "id": "F_3_2",
+            "label": "¿Cuáles considera que son las principales razones de estas dificultades?",
             "type": "multiselect",
             "required": true,
             "options": [
-                "Falta de presupuesto para mantenimiento y reparación de equipos",
-                "Falta de insumos consumibles (filamentos 3D, componentes de repuesto)",
-                "Dificultades para pagar licencias de software y conectividad a internet",
-                "Ausencia de un fondo de reposición tecnológica",
-                "Pérdida de personal especializado y facilitadores técnicos",
-                "Falta de capacitación continua para nuevos docentes",
-                "Sobrecarga del personal docente sin incentivos",
-                "Falta de inclusión del proyecto en el presupuesto ordinario",
-                "Pérdida de prioridad política o directiva con nuevas administraciones",
-                "Falta de articulación curricular del espacio",
-                "No identifico riesgos de sostenibilidad significativos",
+                "Falta de formación docente",
+                "Limitaciones de tiempo curricular",
+                "Poca articulación entre áreas",
+                "Escasez de recursos o materiales",
+                "Baja apropiación metodológica",
+                "Dificultad para diseñar proyectos interdisciplinarios",
+                "Desconocimiento de herramientas tecnológicas",
+                "Falta de acompañamiento técnico",
+                "Otro"
+            ]
+        },
+        {
+            "id": "J_5",
+            "label": "¿Qué tan preparada considera que está la institución o el municipio para gestionar, operar y dar continuidad al Aula STEAM sin acompañamiento externo permanente?",
+            "type": "scale",
+            "required": true
+        },
+        {
+            "id": "J_5_1",
+            "label": "¿Cuáles considera que son las principales necesidades actuales para lograr una operación autónoma del Aula STEAM?",
+            "type": "multiselect",
+            "required": true,
+            "options": [
+                "Formación técnica del personal",
+                "Formación pedagógica docente",
+                "Recursos financieros",
+                "Acompañamiento técnico permanente",
+                "Personal especializado",
+                "Mantenimiento de equipos y tecnología",
+                "Conectividad e infraestructura",
+                "Procesos administrativos definidos",
+                "Planeación institucional",
+                "Articulación con aliados estratégicos",
+                "Tiempo asignado para operación del Aula",
                 "Otro"
             ]
         }
@@ -352,9 +402,8 @@ const questionDatabase = {
     "sec2_direct_unal": [
         {
             "id": "L_1",
-            "label": "¿Los recursos provenientes de la Estampilla permiten realizar de manera oportuna las actividades, compras y procesos requeridos para la implementación y sostenibilidad del proyecto?",
+            "label": "¿Los recursos provenientes de la Estampilla permiten realizar de manera oportuna las actividades, compras y procesos requeridos para el Proyecto Aulas STEAM?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
@@ -365,7 +414,7 @@ const questionDatabase = {
         },
         {
             "id": "L_3",
-            "label": "¿Los tiempos de asignación y desembolso de recursos permiten ejecutar las actividades del proyecto sin retrasos significativos?",
+            "label": "¿Los tiempos de asignación y desembolso de recursos permiten ejecutar las actividades sin retrasos?",
             "type": "select",
             "required": true,
             "options": [
@@ -380,28 +429,20 @@ const questionDatabase = {
             "type": "multiselect",
             "required": true,
             "options": [
-                "Retraso en el desembolso o liberación de recursos",
-                "Presupuesto insuficiente para cubrir las necesidades planificadas",
-                "Procesos de aprobación y legalización de gastos burocráticos y lentos",
-                "Fluctuaciones de precios, inflación o variación imprevista de costos",
-                "Demoras en fases previas de licitación o adjudicación",
-                "Términos de referencia o especificaciones técnicas poco claras",
-                "Trabas administrativas en la formalización de contratos",
-                "Incumplimiento de plazos o problemas de calidad por proveedores",
-                "Normativas rígidas de contratación pública que limitan la maniobra",
-                "No se han identificado cuellos de botella",
+                "Retrasos en desembolsos",
+                "Procesos administrativos lentos",
+                "Presupuesto insuficiente",
+                "Problemas con proveedores",
+                "Demoras contractuales",
+                "Fluctuación de costos",
+                "Incumplimiento de plazos, demoras en las entregas o problemas de calidad por parte de los proveedores",
+                "No se han identificado cuellos de botella financieros ni contractuales.",
                 "Otro"
             ]
         },
         {
-            "id": "D_4",
-            "label": "¿Existen restricciones normativas de la Universidad como entidad pública que limiten la adquisición de ciertos equipos o servicios?",
-            "type": "text",
-            "required": true
-        },
-        {
             "id": "L_5",
-            "label": "¿Qué factores han limitado el desarrollo eficiente y sostenible del proyecto en experiencias anteriores?",
+            "label": "¿Qué factores han limitado el desarrollo eficiente y sostenible del Proyecto Aulas STEAM?",
             "type": "multiselect",
             "required": true,
             "options": [
@@ -419,19 +460,16 @@ const questionDatabase = {
         },
         {
             "id": "L_6",
-            "label": "¿Qué acciones considera necesarias para mejorar el soporte técnico y garantizar que los proveedores cumplan oportunamente?",
+            "label": "¿Qué acciones considera necesarias para mejorar el soporte técnico y garantizar que los proveedores cumplan oportunamente con los tiempos y niveles de servicio acordados?",
             "type": "multiselect",
             "required": true,
             "options": [
                 "Definir tiempos máximos de respuesta",
-                "Establecer indicadores de cumplimiento",
-                "Realizar seguimiento periódico a proveedores",
+                "Seguimiento periódico a proveedores",
                 "Mejorar canales de reporte de fallas",
-                "Contar con soporte técnico local o regional",
-                "Capacitar al personal para atención básica",
-                "Fortalecer cláusulas contractuales",
-                "Implementar mantenimientos preventivos",
-                "Mejorar inventario y trazabilidad de equipos",
+                "Contar con soporte técnico local",
+                "Capacitación básica al personal",
+                "Mantenimientos preventivos",
                 "Otro"
             ]
         },
@@ -439,25 +477,23 @@ const questionDatabase = {
             "id": "L_7",
             "label": "¿Cómo evalúa actualmente la capacidad operativa del Centro de Prototipado para atender procesos académicos, formativos y de innovación?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
             "id": "L_7_comment",
-            "label": "Comentarios adicionales sobre la capacidad operativa:",
+            "label": "Comentarios sobre capacidad operativa",
             "type": "text",
             "required": false
         },
         {
             "id": "L_8",
-            "label": "¿Qué tan pertinentes considera los equipos y tecnologías disponibles en el Centro de Prototipado (impresoras 3D, CNC, robótica, VR, etc.) frente a las necesidades reales?",
+            "label": "¿Qué tan pertinentes considera los equipos y tecnologías actualmente disponibles en el Centro de Prototipado frente a las necesidades actuales de formación, investigación e innovación?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
             "id": "L_8_comment",
-            "label": "Comentarios adicionales sobre la pertinencia de las tecnologías:",
+            "label": "Comentarios opcionales sobre la pertinencia de equipos",
             "type": "text",
             "required": false
         },
@@ -467,12 +503,11 @@ const questionDatabase = {
             "type": "multiselect",
             "required": true,
             "options": [
-                "Inestabilidad del personal (contratos cortos/temporales)",
-                "Burocracia en el proceso de selección y vinculación de personal",
-                "Barreras normativas para comercializar servicios o facturar externamente",
-                "Perfiles y roles institucionales indefinidos o poco claros",
-                "Ninguna (el modelo funciona de manera ágil y adecuada)",
-                "Otro"
+                "Inestabilidad del personal: Contratos cortos o temporales que generan alta rotación del equipo técnico.",
+                "Burocracia en la selección: Procesos administrativos lentos o complejos para vincular personal especializado.",
+                "Barreras comerciales: Dificultades normativas para vender servicios o facturar a empresas externas.",
+                "Perfiles indefinidos: Falta de roles institucionales fijos y claros para la operación del centro.",
+                "Ninguna: El modelo actual de vinculación y contratación funciona de manera ágil y adecuada."
             ]
         },
         {
@@ -481,18 +516,18 @@ const questionDatabase = {
             "type": "multiselect",
             "required": true,
             "options": [
-                "Vincular de forma permanente (planta) al personal técnico/coordinador",
-                "Implementar un modelo de negocio para vender servicios al sector externo",
-                "Articular el centro formalmente con proyectos de grado, semilleros y prácticas",
-                "Establecer alianzas con empresas tecnológicas para cofinanciar operación",
-                "Crear una unidad de compras ágil para insumos y repuestos",
-                "Definir un presupuesto compartido entre Facultades y Vicerrectoría",
+                "Vincular de forma permanente (planta) al personal técnico y de coordinación del centro.",
+                "Implementar un modelo de negocio para comercializar servicios tecnológicos al sector externo.",
+                "Articular el centro con la academia, vinculándolo formalmente a proyectos de grado, semilleros y prácticas.",
+                "Establecer alianzas con empresas tecnológicas para cofinanciar la operación y actualizar equipos.",
+                "Crear una unidad de compras ágil para agilizar la adquisición de insumos y repuestos sin burocracia.",
+                "Definir un presupuesto compartido entre las Facultades beneficiarias y la Vicerrectoría de Investigación.",
                 "Otro"
             ]
         },
         {
             "id": "L_11",
-            "label": "¿Qué capacidades considera prioritario fortalecer en el equipo del Centro?",
+            "label": "¿Qué capacidades considera prioritario fortalecer en el equipo del Centro de Prototipado?",
             "type": "multiselect",
             "required": true,
             "options": [
@@ -510,37 +545,10 @@ const questionDatabase = {
             ]
         }
     ],
-    "sec2_aliado": [
-        {
-            "id": "D_5_aliados",
-            "label": "¿Qué oportunidades de mejora identifica en la estructura actual de las alianzas estratégicas?",
-            "type": "multiselect",
-            "required": true,
-            "options": [
-                "Establecer acuerdos formales por convenio a largo plazo",
-                "Clarificar y definir con precisión los aportes y roles de cada aliado",
-                "Agilizar los trámites jurídicos y tiempos de legalización de convenios",
-                "Mejorar canales de comunicación (comités técnicos, mesas de trabajo)",
-                "Definir indicadores de cumplimiento para evaluar la alianza",
-                "Facilitar la transferencia y el intercambio operativo de recursos",
-                "Vincular nuevos sectores estratégicos (empresas privadas, gremios)",
-                "Fomentar la cofinanciación conjunta de recursos",
-                "Involucrar a familias y comunidad local en la gobernanza",
-                "Considero que funciona adecuadamente y no requiere ajustes",
-                "Otro"
-            ]
-        },
-        {
-            "id": "D_6_aliados",
-            "label": "¿Qué recomendaciones estratégicas tiene respecto a la optimización de los recursos financieros actuales del proyecto para garantizar su sostenibilidad?",
-            "type": "text",
-            "required": true
-        }
-    ],
     "sec2_stem_unal": [
         {
             "id": "M_1",
-            "label": "¿Qué situaciones han afectado la sostenibilidad y continuidad del proyecto en el territorio?",
+            "label": "¿Qué situaciones han afectado la sostenibilidad y continuidad del Proyecto Aulas STEAM en el territorio?",
             "type": "multiselect",
             "required": true,
             "options": [
@@ -557,31 +565,23 @@ const questionDatabase = {
         },
         {
             "id": "M_2",
-            "label": "¿La distribución y organización actual de los espacios facilita el desarrollo de actividades de prototipado, experimentación y trabajo colaborativo?",
+            "label": "¿La distribución y organización actual de los espacios dentro del Centro de Prototipado facilita el desarrollo de actividades de prototipado, experimentación y trabajo colaborativo?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
             "id": "M_3",
-            "label": "¿Qué tan pertinente considera los equipos y tecnologías disponibles en el Centro de Prototipado frente a las necesidades reales?",
+            "label": "¿Qué tan pertinentes considera los equipos y tecnologías actualmente disponibles en el Centro de Prototipado?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
-            "id": "M_3_comment",
-            "label": "Comentarios adicionales sobre las tecnologías disponibles:",
-            "type": "text",
-            "required": false
-        },
-        {
             "id": "M_4",
-            "label": "¿Qué tecnologías, capacidades o herramientas considera prioritario fortalecer o incorporar en el Centro de Prototipado?",
+            "label": "¿Qué tecnologías, capacidades o herramientas considera prioritario fortalecer o incorporar?",
             "type": "multiselect",
             "required": true,
             "options": [
-                "Impresión 3D avanzada (resina, multimaterial, gran formato, funcional)",
+                "Impresión 3D avanzada (resina, multimaterial, gran formato, impresión funcional)",
                 "Robótica avanzada, colaborativa (cobots) y automatización",
                 "Electrónica avanzada y sistemas embebidos",
                 "Gemelos digitales y simulación avanzada",
@@ -598,7 +598,7 @@ const questionDatabase = {
         },
         {
             "id": "M_5",
-            "label": "¿Qué limitaciones técnicas afectan actualmente el aprovechamiento de los equipos y espacios del Centro de Prototipado?",
+            "label": "¿Qué limitaciones técnicas afectan actualmente el aprovechamiento de los equipos y espacios del Centro?",
             "type": "multiselect",
             "required": true,
             "options": [
@@ -638,7 +638,6 @@ const questionDatabase = {
             "id": "M_7",
             "label": "¿Qué tan articulado considera el Centro de Prototipado con las necesidades académicas, investigativas y de extensión de la Universidad?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
@@ -660,13 +659,6 @@ const questionDatabase = {
         },
         {
             "id": "M_9",
-            "label": "¿Qué tan sostenible considera el modelo actual de operación del Centro de Prototipado?",
-            "type": "scale",
-            "max": 5,
-            "required": true
-        },
-        {
-            "id": "M_10",
             "label": "¿Qué aspectos considera prioritarios para garantizar el crecimiento y sostenibilidad del Centro en los próximos años?",
             "type": "multiselect",
             "required": true,
@@ -676,32 +668,32 @@ const questionDatabase = {
                 "Nuevas fuentes de financiación",
                 "Mayor articulación institucional",
                 "Estrategias de visibilidad",
-                "Vinculación con la industria",
-                "Fortalecimiento de la oferta de servicios",
-                "Expansión de la infraestructura física",
-                "Generación de proyectos de investigación aplicada",
+                "Vinculación con industria",
+                "Fortalecimiento de servicios",
+                "Expansión de infraestructura",
+                "Generación de proyectos de investigación",
                 "Otro"
             ]
         },
         {
-            "id": "M_11",
+            "id": "M_10",
             "label": "¿Cuál considera que debería ser la visión futura del Centro de Prototipado dentro de la Universidad y el territorio?",
             "type": "multiselect",
             "required": true,
             "options": [
                 "Consolidarse como un centro líder en innovación y desarrollo tecnológico",
                 "Fortalecer la formación práctica e interdisciplinaria",
-                "Impulsar la investigación aplicada y el prototipado avanzado",
+                "Impulsar investigación aplicada y prototipado avanzado",
                 "Generar soluciones para necesidades del territorio y sectores productivos",
                 "Integrar tecnologías emergentes y manufactura digital avanzada",
                 "Fortalecer alianzas con empresas, comunidades y entidades públicas",
-                "Promover el emprendimiento y la transferencia tecnológica",
-                "Garantizar la sostenibilidad y crecimiento del Centro",
+                "Promover emprendimiento y transferencia tecnológica",
+                "Garantizar sostenibilidad y crecimiento del Centro",
                 "Otro"
             ]
         },
         {
-            "id": "M_12",
+            "id": "M_11",
             "label": "¿Las actividades del Centro de Prototipado están alineadas con las Aulas STEAM?",
             "type": "select",
             "required": true,
@@ -712,37 +704,34 @@ const questionDatabase = {
             ]
         },
         {
-            "id": "M_13",
+            "id": "M_12",
             "label": "¿Las tecnologías y metodologías desarrolladas en el Centro de Prototipado responden a las necesidades actuales de las Aulas STEAM?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
-            "id": "M_14",
+            "id": "M_13",
             "label": "¿Cómo realizan actualmente el seguimiento al impacto de los estudiantes que usan el Aula o solicitan servicios?",
             "type": "multiselect",
             "required": true,
             "options": [
-                "Sistemas de registro digital (formularios, reservas, códigos QR, etc.)",
-                "Planillas físicas de ingreso y bitácoras en papel",
-                "Encuestas de satisfacción o de impacto",
-                "Registro de producción académica (tesis, proyectos, patentes)",
-                "Portafolios o bases de datos fotográficos de prototipos",
-                "Seguimiento a emprendimientos creados a partir de prototipos",
-                "No se realiza un seguimiento sistemático o formalizado",
+                "Formularios digitales",
+                "Encuestas de satisfacción",
+                "Registro de proyectos",
+                "Portafolio de prototipos",
+                "Seguimiento a emprendimientos",
+                "No existe seguimiento formal",
                 "Otro"
             ]
         },
         {
-            "id": "M_15",
+            "id": "M_14",
             "label": "¿Considera que las experiencias desarrolladas desde el Centro de Prototipado pueden transferirse fácilmente a contextos educativos escolares?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
-            "id": "M_16",
+            "id": "M_15",
             "label": "¿Considera que el Centro de Prototipado debería consolidarse como un nodo articulador de innovación educativa y tecnológica para el territorio?",
             "type": "select",
             "required": true,
@@ -753,149 +742,230 @@ const questionDatabase = {
             ]
         }
     ],
-    "sec3_rect_prof_coord": [
+    "sec2_oso_unal": [
         {
-            "id": "E_1",
-            "label": "¿Existe un manual operativo o protocolo de uso del Aula STEAM y se utiliza efectivamente?",
-            "type": "select",
+            "id": "O_1",
+            "label": "¿Qué tipos de intereses o tendencias identifica con mayor frecuencia en los estudiantes evaluados?",
+            "type": "multiselect",
             "required": true,
             "options": [
-                "Sí, y se utiliza efectivamente",
-                "Sí, pero no se aplica activamente",
-                "No existe o está en construcción",
-                "No sé"
+                "Tecnología y programación",
+                "Robótica y electrónica",
+                "Diseño y creatividad digital",
+                "Ciencias e investigación",
+                "Emprendimiento e innovación",
+                "Producción audiovisual y multimedia",
+                "Oficios técnicos o industriales",
+                "Ciencias sociales y comunitarias",
+                "Otro"
             ]
         },
         {
-            "id": "F_1",
-            "label": "¿Las actividades desarrolladas están alineadas con el currículo de la Institución Educativa?",
+            "id": "O_2",
+            "label": "¿Qué limitaciones o dificultades identifica actualmente en el proceso de levantamiento de información en los municipios o instituciones educativas?",
+            "type": "multiselect",
+            "required": true,
+            "options": [
+                "Baja participación estudiantil",
+                "Falta de tiempo institucional",
+                "Dificultades logísticas o desplazamiento",
+                "Limitaciones tecnológicas o de conectividad",
+                "Falta de articulación institucional",
+                "Información insuficiente para análisis posteriores",
+                "Baja apropiación del proceso por parte de las instituciones",
+                "Otro"
+            ]
+        },
+        {
+            "id": "O_3",
+            "label": "¿Qué información adicional considera importante recolectar para fortalecer la planeación y focalización del Proyecto Aulas STEAM en el territorio?",
+            "type": "multiselect",
+            "required": true,
+            "options": [
+                "Intereses vocacionales de estudiantes",
+                "Necesidades productivas del territorio",
+                "Problemáticas locales para resolver",
+                "Capacidades docentes existentes",
+                "Infraestructura tecnológica disponible",
+                "Proyectos institucionales previos",
+                "Intereses del sector productivo local",
+                "Caracterización socioeconómica",
+                "Otro"
+            ]
+        },
+        {
+            "id": "O_4",
+            "label": "¿Qué tipos de capacitación o formación docente considera prioritarios?",
+            "type": "multiselect",
+            "required": true,
+            "options": [
+                "Metodologías STEAM/STEM",
+                "Uso de herramientas tecnológicas y equipos",
+                "Programación y pensamiento computacional",
+                "Robótica y electrónica básica",
+                "Impresión 3D y prototipado",
+                "Inteligencia artificial aplicada a educación",
+                "Diseño de proyectos interdisciplinarios",
+                "Estrategias pedagógicas innovadoras",
+                "Uso de plataformas y software educativo",
+                "Gestión y operación del Aula STEAM",
+                "Seguridad y manejo de equipos",
+                "Evaluación de proyectos y experiencias STEAM",
+                "Otro"
+            ]
+        },
+        {
+            "id": "O_5",
+            "label": "¿Qué temores, dudas o barreras iniciales identifica frente al Proyecto Aulas STEAM?",
+            "type": "multiselect",
+            "required": true,
+            "options": [
+                "Falta de sostenibilidad financiera",
+                "Dificultades de mantenimiento y soporte técnico",
+                "Falta de formación docente o técnica",
+                "Baja apropiación institucional",
+                "Limitaciones de conectividad o infraestructura",
+                "Poco tiempo para integrar actividades STEAM",
+                "Desactualización rápida de tecnologías y equipos",
+                "Falta de personal de apoyo",
+                "Baja participación o interés de la comunidad educativa",
+                "Dificultades administrativas o de gestión",
+                "Incertidumbre sobre continuidad del proyecto",
+                "Otro"
+            ]
+        },
+        {
+            "id": "O_6",
+            "label": "¿Qué cuellos de botella financieros o contractuales ha identificado en fases anteriores?",
+            "type": "multiselect",
+            "required": true,
+            "options": [
+                "Retrasos en desembolsos",
+                "Procesos administrativos lentos",
+                "Presupuesto insuficiente",
+                "Problemas con proveedores",
+                "Demoras contractuales",
+                "Fluctuación de costos",
+                "Incumplimiento de plazos, demoras en las entregas o problemas de calidad por parte de los proveedores",
+                "No se han identificado cuellos de botella financieros ni contractuales.",
+                "Otro"
+            ]
+        },
+        {
+            "id": "O_7",
+            "label": "¿Qué factores han limitado el desarrollo eficiente y sostenible del Proyecto Aulas STEAM?",
+            "type": "multiselect",
+            "required": true,
+            "options": [
+                "Restricciones en el uso de recursos de Estampilla",
+                "Rotación de personal o cambios institucionales",
+                "Falta de planeación financiera a largo plazo",
+                "Cambios en prioridades institucionales o políticas",
+                "Dificultades en la coordinación interinstitucional",
+                "Procesos administrativos complejos",
+                "Falta de recursos para mantenimiento y actualización",
+                "Dificultades para garantizar continuidad operativa",
+                "Limitaciones en seguimiento y evaluación del impacto",
+                "Otro"
+            ]
+        }
+    ],
+    "sec1_aliado": [
+        {
+            "id": "N_1",
+            "label": "Desde su perspectiva, ¿Qué tan pertinente ha sido el Proyecto Aulas STEAM para las necesidades educativas y de innovación del territorio?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
-            "id": "F_1_comment",
-            "label": "Comentarios adicionales sobre la alineación curricular:",
+            "id": "N_2",
+            "label": "¿Qué impactos considera más relevantes en el desarrollo del Proyecto Aulas STEAM?",
+            "type": "multiselect",
+            "required": true,
+            "maxSelections": 3,
+            "options": [
+                "Fortalecimiento de capacidades tecnológicas",
+                "Formación docente",
+                "Innovación educativa",
+                "Apropiación STEAM/STEM",
+                "Desarrollo de habilidades en estudiantes",
+                "Articulación institucional",
+                "Acceso a tecnologías emergentes",
+                "Otro"
+            ]
+        },
+        {
+            "id": "N_3",
+            "label": "¿Considera que el Proyecto Aulas STEAM tiene potencial de crecimiento y continuidad en el territorio?",
+            "type": "select",
+            "required": true,
+            "options": [
+                "Sí",
+                "No",
+                "Parcialmente"
+            ]
+        },
+        {
+            "id": "N_4",
+            "label": "Desde su perspectiva externa, ¿cómo percibe la adecuación de los espacios y la infraestructura tecnológica del Aula STEAM?",
+            "type": "scale",
+            "required": true
+        },
+        {
+            "id": "N_4_comment",
+            "label": "Comentario sobre infraestructura",
             "type": "text",
             "required": false
-        },
+        }
+    ],
+    "sec2_aliado": [
         {
-            "id": "F_2",
-            "label": "¿Existe una planificación de proyectos STEAM consolidada en el PEI (Proyecto Educativo Institucional) o plan estratégico de la institución?",
-            "type": "select",
-            "required": true,
-            "options": [
-                "Sí, totalmente consolidada",
-                "En proceso de estructuración e incorporación",
-                "No existe planificación, se usa de forma libre"
-            ]
-        },
-        {
-            "id": "F_3",
-            "label": "Desde su experiencia, ¿qué áreas del conocimiento se integran con mayor facilidad en las experiencias desarrolladas en el Aula STEAM/STEM? (Seleccione hasta 3 opciones)",
+            "id": "D_5_aliado",
+            "label": "¿Qué oportunidades de mejora identifica en la estructura actual de las alianzas estratégicas?",
             "type": "multiselect",
             "required": true,
-            "maxSelections": 3,
             "options": [
-                "Ciencias Naturales",
-                "Tecnología e Informática",
-                "Matemáticas",
-                "Ingeniería / Robótica",
-                "Arte y Diseño",
-                "Programación y pensamiento computacional",
-                "Electrónica",
-                "Física",
-                "Química",
-                "Biología",
-                "Lenguaje y Comunicación",
-                "Ciencias Sociales",
-                "Emprendimiento e innovación",
-                "Educación ambiental",
+                "Formalización de acuerdos",
+                "Claridad en responsabilidades",
+                "Mejor comunicación",
+                "Indicadores conjuntos",
+                "Cofinanciación",
+                "Vinculación de nuevos aliados",
                 "Otro"
             ]
         },
         {
-            "id": "F_3_1",
-            "label": "¿Qué áreas presentan mayores dificultades para integrarse de manera efectiva en las experiencias del Aula? (Seleccione hasta 3 opciones)",
-            "type": "multiselect",
-            "required": true,
-            "maxSelections": 3,
-            "options": [
-                "Ciencias Naturales",
-                "Tecnología e Informática",
-                "Matemáticas",
-                "Ingeniería / Robótica",
-                "Arte y Diseño",
-                "Programación y pensamiento computacional",
-                "Electrónica",
-                "Física",
-                "Química",
-                "Biología",
-                "Lenguaje y Comunicación",
-                "Ciencias Sociales",
-                "Emprendimiento e innovación",
-                "Educación ambiental",
-                "Otro"
-            ]
-        },
-        {
-            "id": "F_3_2",
-            "label": "¿Cuáles considera que son las principales razones de estas dificultades?",
-            "type": "multiselect",
-            "required": true,
-            "options": [
-                "Falta de formación docente",
-                "Limitaciones de tiempo curricular",
-                "Poca articulación entre áreas",
-                "Escasez de recursos o materiales",
-                "Dificultad para diseñar proyectos interdisciplinarios",
-                "Baja apropiación metodológica",
-                "Falta de acompañamiento técnico",
-                "Desconocimiento de herramientas tecnológicas",
-                "Otro"
-            ]
-        },
-        {
-            "id": "J_5",
-            "label": "¿Qué tan preparada considera que está la institución o el municipio para gestionar, operar y dar continuidad al Aula STEAM/STEM sin acompañamiento externo permanente?",
-            "type": "scale",
-            "max": 5,
+            "id": "D_6_aliado",
+            "label": "¿Qué recomendaciones estratégicas tiene respecto a la optimización de los recursos financieros actuales del Proyecto Aulas STEAM para garantizar su sostenibilidad?",
+            "type": "text",
             "required": true
-        },
-        {
-            "id": "J_5_1",
-            "label": "¿Cuáles considera que son las principales necesidades actuales para lograr una operación autónoma del Aula STEAM/STEM?",
-            "type": "multiselect",
-            "required": true,
-            "options": [
-                "Formación técnica del personal de apoyo",
-                "Formación pedagógica docente en STEAM",
-                "Recursos financieros propios asignados",
-                "Acompañamiento técnico permanente de entidades externas",
-                "Personal especializado de tiempo completo a cargo del aula",
-                "Mantenimiento regular de equipos y tecnología",
-                "Mejora en la conectividad e infraestructura de red",
-                "Procesos administrativos y de préstamo claros y definidos",
-                "Planeación institucional de largo plazo",
-                "Articulación estrecha con aliados estratégicos",
-                "Mayor tiempo asignado a los docentes para operar el Aula",
-                "Otro"
-            ]
         }
     ],
     "sec3_aliado": [
         {
             "id": "E_S_3",
-            "label": "¿Cómo observa la alineación de las actividades del Aula STEAM con las tendencias o necesidades actuales del sector académico y productivo?",
+            "label": "¿Cómo observa la alíneación de las actividades del Aula STEAM con las tendencias o necesidades actuales del sector académico y productivo?",
             "type": "scale",
-            "max": 5,
             "required": true
-        },
+        }
+    ],
+    "sec5_aliado": [
         {
-            "id": "E_S_3_comment",
-            "label": "Comentarios adicionales sobre la alineación con tendencias:",
-            "type": "text",
-            "required": false
+            "id": "E_S_4",
+            "label": "¿Qué rol específico deberían asumir los aliados estratégicos para garantizar la escalabilidad e impacto del Proyecto Aulas STEAM?",
+            "type": "multiselect",
+            "required": true,
+            "options": [
+                "Cofinanciador: Aportar recursos económicos directos o gestionar fondos de inversión externos.",
+                "Proveedor de tecnología: Facilitar, donar o renovar licencias de software, equipos e infraestructura.",
+                "Asesor técnico / Mentor: Brindar capacitaciones especializadas, charlas técnicas o asesorías conjuntas.",
+                "Facilitador de inserción laboral: Ofrecer prácticas profesionales, pasantías o vacantes de empleo a los beneficiarios.",
+                "Co-diseñador académico: Colaborar en el diseño de planes de formación alineados con las demandas reales de la industria.",
+                "Conector institucional: Enlazar el proyecto con gobiernos locales, gremios empresariales o redes de cooperación regional.",
+                "Socio de I+D: Desarrollar de manera conjunta proyectos de investigación, desarrollo tecnológico e innovación aplicada.",
+                "Promotor o difusor: Apoyar en la divulgación del impacto del proyecto para atraer nuevos participantes o cooperantes.",
+                "Otro"
+            ]
         }
     ],
     "sec4_prov": [
@@ -903,23 +973,22 @@ const questionDatabase = {
             "id": "I_1",
             "label": "¿Los procesos de contratación con la UNAL han sido claros y ágiles?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
             "id": "I_2",
-            "label": "¿Qué mejoras en las fichas técnicas o términos de referencia (TDR) haría más eficiente la adquisición?",
+            "label": "¿Qué mejoras en las fichas técnicas o términos de referencia (TDR) harían más eficiente la adquisición?",
             "type": "multiselect",
             "required": true,
             "options": [
-                "Estandarizar las especificaciones técnicas de los equipos para evitar confusiones",
-                "Evitar el direccionamiento de marcas específicas para fomentar mayor competencia",
-                "Realizar estudios de mercado más precisos para presupuestos acordes a la realidad",
-                "Definir criterios de evaluación objetivos y fáciles de calificar",
-                "Simplificar requisitos administrativos y jurídicos exigidos a proponentes",
-                "Exigir certificaciones de calidad y garantías mínimas de fábrica obligatorias",
-                "Incluir la instalación y capacitación básica dentro de las condiciones de entrega",
-                "Publicar pliegos preliminares para recibir comentarios previos de proveedores",
+                "Estandarizar las especificaciones técnicas de los equipos para evitar confusiones.",
+                "Evitar el direccionamiento de marcas específicas para fomentar una mayor competencia.",
+                "Realizar estudios de mercado más precisos para establecer presupuestos acordes a la realidad.",
+                "Definir criterios de evaluación objetivos y fáciles de calificar por el comité.",
+                "Simplificar los requisitos administrativos y jurídicos exigidos a los proponentes.",
+                "Exigir certificaciones de calidad y garantías de fábrica mínimas obligatorias.",
+                "Incluir la instalación y capacitación básica dentro de las condiciones de entrega.",
+                "Publicar pliegos de condiciones preliminares para recibir comentarios previos de los proveedores.",
                 "Otro"
             ]
         },
@@ -929,39 +998,39 @@ const questionDatabase = {
             "type": "multiselect",
             "required": true,
             "options": [
-                "Establecer multas y sanciones claras en el contrato por retrasos",
-                "Exigir soporte técnico presencial y local, evitando asistencia 100% remota",
-                "Implementar una plataforma digital para rastrear y reportar fallas",
-                "Fijar tiempos de respuesta estrictos obligatorios según la gravedad",
-                "Programar mantenimientos preventivos periódicos obligatorios en contrato",
-                "Exigir stock de repuestos inmediato nacional al proveedor",
-                "Realizar evaluaciones de desempeño periódicas al proveedor",
-                "Capacitar al personal interno para resolver fallas básicas de nivel 1",
+                "Establecer multas y sanciones claras en el contrato por incumplimiento de tiempos.",
+                "Exigir soporte técnico presencial y local, evitando la asistencia únicamente remota.",
+                "Implementar una plataforma digital para registrar, priorizar y rastrear los reportes de fallas.",
+                "Fijar tiempos de respuesta estrictos y obligatorios según la gravedad del daño.",
+                "Programar mantenimientos preventivos obligatorios de manera periódica en el contrato.",
+                "Exigir stock de repuestos inmediato al proveedor para evitar demoras por importaciones o envíos.",
+                "Realizar evaluaciones periódicas de desempeño al proveedor para revisar la calidad del servicio.",
+                "Capacitar al personal interno para resolver fallas básicas de primer nivel sin depender del proveedor.",
                 "Otro"
             ]
         }
     ],
     "sec4_benef_futuro": [
         {
-            "id": "K_1_1",
-            "label": "¿Qué beneficios espera que el Aula STEAM genere en su municipio o institución durante el primer año de funcionamiento?",
+            "id": "K_1",
+            "label": "¿Qué beneficios espera que el Aula STEAM genere en su institución o municipio durante el primer año de funcionamiento?",
             "type": "multiselect",
             "required": true,
             "options": [
-                "Acceso a tecnologías avanzadas (impresoras 3D, kits de robótica, etc.)",
-                "Capacitación técnica y pedagógica para los docentes de la institución",
-                "Mayor motivación y asistencia de los estudiantes a las clases",
-                "Desarrollo de habilidades prácticas en programación, diseño y robótica",
-                "Reducción de la brecha digital y tecnológica local",
-                "Creación de proyectos escolares orientados a resolver problemas locales",
-                "Apertura de talleres y cursos tecnológicos dirigidos a las familias",
-                "Mejor preparación académica de los estudiantes para el ámbito universitario/laboral",
+                "Acceso a tecnologías avanzadas (impresoras 3D, kits de robótica, computadores).",
+                "Capacitación técnica y pedagógica para los docentes de la institución.",
+                "Mayor motivación y asistencia de los estudiantes a las clases diarias.",
+                "Desarrollo de habilidades prácticas en programación, diseño, ciencias y matemáticas.",
+                "Reducción de la brecha digital en la institución o en el municipio.",
+                "Creación de proyectos escolares que propongan soluciones a problemas locales.",
+                "Apertura de talleres y cursos tecnológicos dirigidos a las familias y la comunidad.",
+                "Mejor preparación académica de los estudiantes para su futuro universitario o laboral.",
                 "Otro"
             ]
         },
         {
-            "id": "K_1_2",
-            "label": "¿La administración municipal o rectoría está dispuesta a comprometer recursos propios para el funcionamiento (mantenimiento, servicios, personal)?",
+            "id": "K_1_1",
+            "label": "¿La administración municipal o rectoría está dispuesta a comprometer recursos propios para el funcionamiento (mantenimiento, servicios, personal) ?",
             "type": "select",
             "required": true,
             "options": [
@@ -972,7 +1041,7 @@ const questionDatabase = {
         },
         {
             "id": "K_2",
-            "label": "¿La institución/municipio estaría dispuesta a asignar personal responsable para apoyar la operación y sostenibilidad del Aula STEAM/STEM?",
+            "label": "¿La institución/municipio estaría dispuesta a asignar personal responsable para apoyar la operación y sostenibilidad del Aula STEAM?",
             "type": "select",
             "required": true,
             "options": [
@@ -983,14 +1052,13 @@ const questionDatabase = {
         },
         {
             "id": "K_3",
-            "label": "¿La institución/municipio cuenta con disposición para destinar tiempos académicos o espacios para el desarrollo de actividades STEAM/STEM?",
+            "label": "¿La institución/municipio cuenta con disposición para destinar tiempos académicos o espacios para el desarrollo de actividades STEAM?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
             "id": "K_4",
-            "label": "¿La institución/municipio estaría comprometida con procesos de formación y apropiación tecnológica para docentes y equipos de apoyo?",
+            "label": "¿La institución/municipio estaría comprometida con procesos de formación y apropiación tecnológica para docentes y equipos de apoyo ?",
             "type": "select",
             "required": true,
             "options": [
@@ -1001,44 +1069,37 @@ const questionDatabase = {
         },
         {
             "id": "K_5",
-            "label": "¿La institución estaría dispuesta a asumir responsabilidades básicas de cuidado, mantenimiento y seguimiento del Aula?",
+            "label": "¿La institución estaría dispuesta a asumir responsabilidades básicas de cuidado, mantenimiento y seguimiento del Aula STEAM?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
             "id": "K_6",
-            "label": "¿Qué temores, dudas o barreras iniciales identifica frente al proyecto de implementación?",
+            "label": "¿Qué temores, dudas o barreras iniciales identifica frente al Proyecto Aulas STEAM?",
             "type": "multiselect",
             "required": true,
             "options": [
-                "Falta de sostenibilidad financiera de largo plazo",
-                "Dificultades de mantenimiento y soporte técnico oportuno",
-                "Falta de formación docente o técnica especializada",
-                "Baja apropiación institucional o desinterés directivo",
-                "Limitaciones de conectividad a internet o infraestructura eléctrica",
-                "Poco tiempo dentro de la jornada escolar para actividades STEAM",
-                "Obsolescencia y desactualización rápida de los equipos",
-                "Falta de personal exclusivo para cuidar y coordinar el aula",
-                "Baja participación o interés de la comunidad educativa local",
-                "Dificultades administrativas o burocracia en la gestión del espacio",
-                "Incertidumbre general sobre la continuidad del proyecto",
+                "Falta de sostenibilidad financiera",
+                "Dificultades de mantenimiento y soporte técnico",
+                "Falta de formación docente o técnica",
+                "Baja apropiación institucional",
+                "Limitaciones de conectividad o infraestructura",
+                "Poco tiempo para integrar actividades STEAM",
+                "Desactualización rápida de tecnologías y equipos",
+                "Falta de personal de apoyo",
+                "Baja participación o interés de la comunidad educativa",
+                "Dificultades administrativas o de gestión",
+                "Incertidumbre sobre continuidad del proyecto",
                 "Otro"
             ]
         },
         {
-            "id": "K_7",
-            "label": "¿Ha tenido la oportunidad de visitar un Aula STEAM activa?",
-            "type": "binary",
-            "required": true
-        },
-        {
             "id": "K_7_1",
-            "label": "En caso de haber visitado un Aula STEAM, ¿qué le llamó la atención positiva o negativamente?",
+            "label": "Si ha tenido la oportunidad de visitar un Aula STEAM activa, ¿Qué le llamó la atención positiva o negativamente?",
             "type": "text",
             "required": false,
             "dependsOn": {
-                "id": "K_7",
+                "id": "0_6",
                 "values": [
                     "Sí"
                 ]
@@ -1046,7 +1107,7 @@ const questionDatabase = {
         },
         {
             "id": "K_8",
-            "label": "¿La institución o municipio estaría dispuesto a generar alianzas con universidades, empresas u otros actores para fortalecer el Aula?",
+            "label": "¿La institución o municipio estaría dispuesto a generar alianzas con universidades, empresas u otros actores?",
             "type": "select",
             "required": true,
             "options": [
@@ -1057,9 +1118,8 @@ const questionDatabase = {
         },
         {
             "id": "K_9",
-            "label": "¿El espacio físico preseleccionado para el Aula cuenta con condiciones óptimas de energía, red, ventilación e iluminación?",
+            "label": "¿El espacio físico preseleccionado cuenta con condiciones óptimas de energía, red, ventilación e iluminación ?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
@@ -1075,21 +1135,21 @@ const questionDatabase = {
         },
         {
             "id": "K_11",
-            "label": "Pensando en la puesta en marcha del Aula STEAM/STEM, ¿qué equipos o recursos tecnológicos considera prioritarios para garantizar su funcionamiento desde el inicio?",
+            "label": "Pensando en la puesta en marcha del Aula STEAM ¿Qué equipos o recursos tecnológicos considera prioritarios para garantizar el funcionamiento desde el inicio?",
             "type": "multiselect",
             "required": true,
             "options": [
                 "Computadores o portátiles",
                 "Conectividad y acceso a internet",
-                "Kits de robótica y electrónica básica",
-                "Impresoras 3D y filamento/insumos",
+                "Kits de robótica y electrónica",
+                "Impresoras 3D y consumibles",
                 "Pantallas interactivas o proyectores",
                 "Tablets o dispositivos móviles",
-                "Herramientas de programación y entornos de desarrollo",
+                "Herramientas de programación y desarrollo",
                 "Equipos de realidad virtual o aumentada",
-                "Mobiliario especializado y estaciones de trabajo modulares",
-                "Kits de ciencias y experimentación práctica",
-                "Software educativo y licencias especializadas",
+                "Mobiliario especializado y estaciones de trabajo",
+                "Kits de ciencias y experimentación",
+                "Software educativo y licencias",
                 "Sistemas de sonido y grabación audiovisual",
                 "Otro"
             ]
@@ -1100,17 +1160,18 @@ const questionDatabase = {
             "type": "multiselect",
             "required": true,
             "options": [
-                "Metodologías STEAM/STEM y Aprendizaje Basado en Proyectos",
-                "Uso de herramientas tecnológicas y equipos del aula",
-                "Programación y desarrollo de pensamiento computacional",
-                "Robótica y electrónica básica escolar",
-                "Impresión y modelado 3D básico y avanzado",
-                "Inteligencia artificial aplicada a la educación",
-                "Diseño curricular de proyectos interdisciplinarios",
-                "Estrategias pedagógicas innovadoras en el aula",
-                "Uso de plataformas y software educativo específico",
-                "Gestión, operación y seguridad del Aula STEAM/STEM",
-                "Evaluación de proyectos y experiencias de aprendizaje STEAM",
+                "Metodologías STEAM/STEM",
+                "Uso de herramientas tecnológicas y equipos",
+                "Programación y pensamiento computacional",
+                "Robótica y electrónica básica",
+                "Impresión 3D y prototipado",
+                "Inteligencia artificial aplicada a educación",
+                "Diseño de proyectos interdisciplinarios",
+                "Estrategias pedagógicas innovadoras",
+                "Uso de plataformas y software educativo",
+                "Gestión y operación del Aula STEAM",
+                "Seguridad y manejo de equipos",
+                "Evaluación de proyectos y experiencias STEAM",
                 "Otro"
             ]
         },
@@ -1132,19 +1193,18 @@ const questionDatabase = {
         },
         {
             "id": "K_14",
-            "label": "¿Qué nivel de compromiso tendría la institución para priorizar el Aula STEAM/STEM dentro de sus actividades académicas, proyectos institucionales y estrategias de desarrollo educativo?",
+            "label": "¿Qué nivel de compromiso tendría la institución para priorizar el Aula STEAM dentro de sus actividades académicas, proyectos institucionales y estrategias de desarrollo educativo?",
             "type": "scale",
-            "max": 5,
             "required": true
         },
         {
             "id": "K_15",
-            "label": "¿Estaría dispuesto/a a formalizar un acuerdo de corresponsabilidad con la Universidad Nacional para garantizar el adecuado uso, cuidado, sostenibilidad y aprovechamiento de la dotación?",
+            "label": "¿La institución/municipio estaría dispuesto/a a formalizar un acuerdo de corresponsabilidad con la Universidad Nacional para garantizar el adecuado uso, cuidado, sostenibilidad y aprovechamiento de la dotación del Aula STEAM?",
             "type": "select",
             "required": true,
             "options": [
                 "Sí",
-                "Sí sujeta a revisión jurídica de la entidad",
+                "Sí sujeta a revisión jurídica",
                 "No"
             ]
         },
@@ -1158,21 +1218,20 @@ const questionDatabase = {
     "sec5_all": [
         {
             "id": "V_1",
-            "label": "En una escala de 1 a 10, ¿qué tan satisfecho está con el proyecto en general?",
+            "label": "En una escala de 1 a 10, ¿qué tan satisfecho/a está con el Proyecto Aulas STEAM en general?",
             "type": "satisfaction-scale",
-            "max": 10,
             "required": true
         },
         {
             "id": "V_2",
-            "label": "¿Cuáles considera que deberían ser las prioridades más urgentes en la reestructuración del proyecto? (Seleccione hasta 3 opciones)",
+            "label": "¿Cuáles considera que deberían ser las prioridades más urgentes en la reestructuración del Proyecto Aulas STEAM?",
             "type": "multiselect",
             "required": true,
             "maxSelections": 3,
             "options": [
-                "Sostenibilidad financiera del proyecto",
-                "Mejora en los procesos administrativos y contractuales",
-                "Actualización tecnológica y de equipos",
+                "Sostenibilidad financiera",
+                "Mejora administrativa y contractual",
+                "Actualización tecnológica",
                 "Formación docente y técnica",
                 "Soporte técnico y mantenimiento",
                 "Articulación entre actores e instituciones",
@@ -1184,38 +1243,19 @@ const questionDatabase = {
         },
         {
             "id": "V_3",
-            "label": "Pensando en el fortalecimiento tecnológico y físico del proyecto, ¿cuáles considera que deberían ser las inversiones prioritarias para la siguiente fase? (Seleccione hasta 3 opciones)",
+            "label": "Pensando en el fortalecimiento tecnológico y físico del Proyecto Aulas STEAM, ¿cuáles considera que deberían ser las inversiones prioritarias para la siguiente fase?",
             "type": "multiselect",
             "required": true,
             "maxSelections": 3,
             "options": [
-                "Conectividad a internet dedicada y de alta velocidad",
-                "Equipos tecnológicos y TIC generales",
-                "Equipos de manufactura digital (impresoras 3D, robótica, CNC)",
-                "Plataformas de Inteligencia Artificial y tecnologías inmersivas",
-                "Adecuación civil de espacios físicos y mobiliario modular",
-                "Mantenimiento regular y repuestos preventivos",
-                "Formación docente y talento humano de soporte local",
-                "Recursos pedagógicos impresos y contenidos de co-diseño",
-                "Otro"
-            ]
-        }
-    ],
-    "sec5_aliado": [
-        {
-            "id": "E_S_4",
-            "label": "¿Qué rol específico deberían asumir los aliados estratégicos para garantizar la escalabilidad y el impacto del proyecto en los próximos años?",
-            "type": "multiselect",
-            "required": true,
-            "options": [
-                "Cofinanciador: Aportar recursos económicos directos o gestionar fondos de inversión externos",
-                "Proveedor de tecnología: Facilitar, donar o renovar licencias de software, equipos e infraestructura",
-                "Asesor técnico / Mentor: Brindar capacitaciones especializadas, charlas técnicas o asesorías conjuntas",
-                "Facilitador de inserción laboral: Ofrecer prácticas profesionales, pasantías o vacantes de empleo a los beneficiarios",
-                "Co-diseñador académico: Colaborar en el diseño de planes de formación alineados con las demandas reales de la industria",
-                "Conector institucional: Enlazar el proyecto con gobiernos locales, gremios empresariales o redes de cooperación regional",
-                "Socio de I+D: Desarrollar de manera conjunta proyectos de investigación, desarrollo tecnológico e innovación aplicada",
-                "Promotor o difusor: Apoyar en la divulgación del impacto del proyecto para atraer nuevos participantes o cooperantes",
+                "Conectividad e infraestructura",
+                "Equipos tecnológicos y TIC",
+                "Impresión 3D, robótica y manufactura digital",
+                "Inteligencia artificial y tecnologías inmersivas",
+                "Adecuación de espacios y mobiliario",
+                "Mantenimiento y actualización de equipos",
+                "Formación y talento humano",
+                "Recursos pedagógicos y contenidos",
                 "Otro"
             ]
         }
@@ -1224,7 +1264,7 @@ const questionDatabase = {
 
 const actorModuleMapping = {
     "gob_alc": {
-        "title": "Gobernación de Caldas / Alcaldía de Manizales (Secretarías de Educación)",
+        "title": "Gobernación / Secretaría de Educación de Caldas / Alcaldía y Secretaría de Manizales",
         "badgeColor": "var(--color-gob-teal)",
         "modules": [
             "sec0",
@@ -1233,7 +1273,7 @@ const actorModuleMapping = {
         ]
     },
     "rect_prof": {
-        "title": "Rector(a)/Docente I.E con Aula STEAM",
+        "title": "Rector(a) / Docente de I.E con Aula STEAM",
         "badgeColor": "var(--color-primary)",
         "modules": [
             "sec0",
@@ -1243,7 +1283,7 @@ const actorModuleMapping = {
         ]
     },
     "coord": {
-        "title": "Coordinador de Aula STEAM Caldas/Manizales",
+        "title": "Coordinador(a) de Aula STEAM Caldas/Manizales",
         "badgeColor": "var(--color-primary-dark)",
         "modules": [
             "sec0",
@@ -1262,11 +1302,20 @@ const actorModuleMapping = {
         ]
     },
     "stem_unal": {
-        "title": "Equipo Centro de Prototipado",
+        "title": "Equipo del Centro de Prototipado UNAL",
         "badgeColor": "var(--color-stem-purple)",
         "modules": [
             "sec0",
             "sec2_stem_unal",
+            "sec5_all"
+        ]
+    },
+    "oso_unal": {
+        "title": "Equipo de OSO UNAL",
+        "badgeColor": "var(--color-primary-dark)",
+        "modules": [
+            "sec0",
+            "sec2_oso_unal",
             "sec5_all"
         ]
     },
@@ -1519,6 +1568,9 @@ function setSectionTitle(moduleKey) {
             break;
         case "sec2_stem_unal":
             sectionTitleElement.textContent = "Sección 2: Gestión Centro de Prototipado (Equipo UNAL)";
+            break;
+        case "sec2_oso_unal":
+            sectionTitleElement.textContent = "Sección 1: Operación OSO (Equipo OSO UNAL)";
             break;
         case "sec3_rect_prof_coord":
             sectionTitleElement.textContent = "Sección 3: Pedagogía y Apropiación (Docentes / Coordinadores)";
