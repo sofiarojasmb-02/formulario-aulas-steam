@@ -1243,7 +1243,7 @@ const questionDatabase = {
         },
         {
             "id": "V_3",
-            "label": "Pensando en el fortalecimiento tecnológico y físico del Proyecto Aulas STEAM, ¿cuáles considera que deberían ser las inversiones prioritarias para la siguiente fase?",
+            "label": "Pensando en el fortalecimiento tecnológico y físico del Proyecto Aulas STEAM, ¿cuáles considera que deberían ser las 3 inversiones prioritarias para la siguiente fase?",
             "type": "multiselect",
             "required": true,
             "maxSelections": 3,
