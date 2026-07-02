@@ -19,7 +19,7 @@ const questionDatabase = {
             "type": "select",
             "required": true,
             "options": [
-                "Manizales (Sede Central)",
+                "Manizales",
                 "Aguadas",
                 "Anserma",
                 "Aranzazu",
@@ -46,10 +46,7 @@ const questionDatabase = {
                 "Victoria",
                 "Villamaría",
                 "Viterbo",
-                "UNAL Sede Manizales",
-                "UNAL Sede Bogotá",
-                "UNAL Sede Medellín",
-                "UNAL Sede Tumaco"
+                "UNAL Sede Manizales"
             ]
         },
         {
