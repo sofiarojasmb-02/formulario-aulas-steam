@@ -51,6 +51,18 @@ const questionDatabase = {
         },
         {
             "id": "0_5",
+            "label": "Teléfono de contacto",
+            "type": "text",
+            "required": true
+        },
+        {
+            "id": "0_6",
+            "label": "Correo electrónico de contacto",
+            "type": "text",
+            "required": true
+        },
+        {
+            "id": "0_7",
             "label": "¿Desde qué año está vinculado/a al Proyecto Aulas STEAM?",
             "type": "number",
             "required": true,
@@ -58,7 +70,7 @@ const questionDatabase = {
             "max": 2026
         },
         {
-            "id": "0_6",
+            "id": "0_8",
             "label": "¿Ha visitado o trabajado directamente en al menos un Aula STEAM?",
             "type": "binary",
             "required": true
@@ -1101,7 +1113,7 @@ const questionDatabase = {
             "type": "text",
             "required": false,
             "dependsOn": {
-                "id": "0_6",
+                "id": "0_8",
                 "values": [
                     "Sí"
                 ]
@@ -1676,7 +1688,7 @@ function renderInputElement(container, q) {
             select.addEventListener("change", () => {
                 if (isOtro(select.value)) {
                     outroInput.style.display = "block";
-                    outroInput.required = true;
+                    outroInput.required = false;
                 } else {
                     outroInput.style.display = "none";
                     outroInput.value = "";
@@ -1888,7 +1900,7 @@ function renderInputElement(container, q) {
                 check.addEventListener("change", () => {
                     if (check.checked) {
                         outroInput.style.display = "block";
-                        outroInput.required = true;
+                        outroInput.required = false;
                         outroInput.focus();
                     } else {
                         outroInput.style.display = "none";
@@ -1981,15 +1993,7 @@ function validateCurrentStep() {
                 if (selectElem) selectElem.focus();
                 return false;
             }
-            // If select value is "Otro", check if text input is filled
-            if (isOtro(selectElem.value)) {
-                const outroInput = dynamicFormContainer.querySelector(`input[name="${q.id}_otro"]`);
-                if (!outroInput || !outroInput.value.trim()) {
-                    alert(`Por favor especifique su respuesta en el campo de texto.`);
-                    if (outroInput) outroInput.focus();
-                    return false;
-                }
-            }
+            // If select value is "Otro", dynamic text input is optional (removed blocking validation)
         }
         else if (q.type === "binary" || q.type === "scale" || q.type === "satisfaction-scale") {
             const checked = dynamicFormContainer.querySelector(`input[name="${q.id}"]:checked`);
@@ -2034,19 +2038,7 @@ function validateCurrentStep() {
                 return false;
             }
 
-            // Check if any checked box is "Otro" and has empty text field
-            let outroValid = true;
-            checkedBoxes.forEach(cb => {
-                if (isOtro(cb.value)) {
-                    const outroInput = cb.parentElement.querySelector('.otro-chip-text');
-                    if (!outroInput || !outroInput.value.trim()) {
-                        alert(`Por favor especifique su respuesta para la opción "Otro".`);
-                        if (outroInput) outroInput.focus();
-                        outroValid = false;
-                    }
-                }
-            });
-            if (!outroValid) return false;
+            // Dynamic text input for "Otro" option is optional (removed blocking validation)
         }
         else if (q.type === "triple-text") {
             // Must fill at least the first item

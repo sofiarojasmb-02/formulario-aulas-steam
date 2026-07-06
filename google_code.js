@@ -37,6 +37,8 @@ function saveAnswers(answersJson) {
         "Entidad/Institución", 
         "Rol o Cargo en el Proyecto", 
         "Municipio/Sede de Referencia", 
+        "Teléfono de contacto",
+        "Correo electrónico de contacto",
         "Año de Vinculación", 
         "¿Ha visitado Aula STEAM?",
         "Consolidado Completo de Respuestas (JSON)"
@@ -58,8 +60,10 @@ function saveAnswers(answersJson) {
       answers["0_2"] || "N/A",                  // Entidad
       answers["0_3_title"] || "No especificado",// Rol en el proyecto
       answers["0_4"] || "N/A",                  // Municipio
-      answers["0_5"] || "N/A",                  // Año
-      answers["0_6"] || "N/A",                  // Visita aula
+      answers["0_5"] || "N/A",                  // Teléfono
+      answers["0_6"] || "N/A",                  // Correo
+      answers["0_7"] || "N/A",                  // Año de vinculación
+      answers["0_8"] || "N/A",                  // Visita aula
       answersJson                               // JSON con todo el detalle (Módulos A-K y Visión de Futuro)
     ];
     

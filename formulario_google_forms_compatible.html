@@ -622,8 +622,12 @@
           "0_2": "entry.1218665482",
           "0_3_title": "entry.632190729",
           "0_4": "entry.277783835",
-          "0_5": "entry.333510213",
-          "0_6": "entry.640762293",
+          // NOTA: Si regenera el formulario de Google con crear_preguntas_google_forms.js,
+          // deberá actualizar las siguientes claves entry.XXXXX con los valores nuevos generados:
+          "0_5": "entry.TODO_G5_TELEFONO",
+          "0_6": "entry.TODO_G6_CORREO",
+          "0_7": "entry.333510213", // Mapeado al campo anterior de Año (G.5 original)
+          "0_8": "entry.640762293", // Mapeado al campo anterior de Visita (G.6 original)
           "A_1": "entry.867987784",
           "A_2": "entry.1024108680",
           "A_3": "entry.1620392427",
@@ -720,23 +724,25 @@
         const questionDatabase = {
             sec0: [
                 { id: "0_1", label: "Nombre completo", type: "text", required: true },
-                { id: "0_2", label: "Institución / entidad a la que pertenece", type: "text", required: true },
+                { id: "0_2", label: "Institución o entidad a la que pertenece", type: "text", required: true },
                 {
                     id: "0_4",
                     label: "Municipio o sede de referencia",
                     type: "select",
                     required: true,
                     options: [
-                        "Manizales (Sede Central)", "Aguadas", "Anserma", "Aranzazu", "Belalcázar", 
+                        "Manizales", "Aguadas", "Anserma", "Aranzazu", "Belalcázar", 
                         "Chinchiná", "Filadelfia", "La Dorada", "La Merced", "Manzanares", 
                         "Marmato", "Marquetalia", "Marulanda", "Neira", "Norcasia", "Pácora", 
                         "Palestina", "Pensilvania", "Riosucio", "Risaralda", "Salamina", 
                         "Samaná", "San José", "Supía", "Victoria", "Villamaría", "Viterbo",
-                        "UNAL Sede Manizales", "UNAL Sede Bogotá", "UNAL Sede Medellín", "UNAL Sede Tumaco"
+                        "UNAL Sede Manizales"
                     ]
                 },
-                { id: "0_5", label: "¿Desde qué año está vinculado/a al proyecto Aulas STEAM?", type: "number", required: true, min: 2015, max: 2026 },
-                { id: "0_6", label: "¿Ha visitado o trabajado directamente en al menos un Aula STEAM?", type: "binary", required: true }
+                { id: "0_5", label: "Teléfono de contacto", type: "text", required: true },
+                { id: "0_6", label: "Correo electrónico de contacto", type: "text", required: true },
+                { id: "0_7", label: "¿Desde qué año está vinculado/a al Proyecto Aulas STEAM?", type: "number", required: true, min: 2015, max: 2026 },
+                { id: "0_8", label: "¿Ha visitado o trabajado directamente en al menos un Aula STEAM?", type: "binary", required: true }
             ],
             modA: [
                 { id: "A_1", label: "¿Cómo califica las condiciones físicas actuales de las Aulas STEAM?", desc: "Tenga en cuenta aspectos como espacio de transito, ventilación, iluminación y accesibilidad.", type: "scale", max: 5, required: true },

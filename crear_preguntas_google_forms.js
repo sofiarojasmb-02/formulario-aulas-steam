@@ -19,11 +19,13 @@ function crearYExtraerFormulario() {
   // Array estructurado con todas las preguntas del formulario HTML
   const preguntas = [
     { id: "0_1", title: "Nombre completo", type: "text" },
-    { id: "0_2", title: "Institución / entidad a la que pertenece", type: "text" },
+    { id: "0_2", title: "Institución o entidad a la que pertenece", type: "text" },
     { id: "0_3_title", title: "Rol descriptivo (Actor)", type: "text" },
     { id: "0_4", title: "Municipio o sede de referencia", type: "text" },
-    { id: "0_5", title: "¿Desde qué año está vinculado/a al proyecto Aulas STEAM?", type: "text" },
-    { id: "0_6", title: "¿Ha visitado o trabajado directamente en al menos un Aula STEAM?", type: "text" },
+    { id: "0_5", title: "Teléfono de contacto", type: "text" },
+    { id: "0_6", title: "Correo electrónico de contacto", type: "text" },
+    { id: "0_7", title: "¿Desde qué año está vinculado/a al Proyecto Aulas STEAM?", type: "text" },
+    { id: "0_8", title: "¿Ha visitado o trabajado directamente en al menos un Aula STEAM?", type: "text" },
     
     // Módulo A: Infraestructura Física
     { id: "A_1", title: "¿Cómo califica las condiciones físicas actuales de las Aulas STEAM?", type: "text" },
