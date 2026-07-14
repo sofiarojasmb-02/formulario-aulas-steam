@@ -902,7 +902,7 @@
                 { id: "K_6_3", label: "¿Qué indicadores clave consideraría apropiados para medir el éxito del aula al cabo del primer año de funcionamiento?", type: "text", required: true }
             ],
             sec3: [
-                { id: "V_1", label: "En una escala de 1 a 10, ¿cuál es su nivel de satisfacción general con el desarrollo del proyecto?", type: "satisfaction-scale", max: 10, required: true },
+                { id: "V_1", label: "En una escala de 1 a 5, ¿qué tan satisfecho/a está con el Proyecto Aulas STEAM en general?", type: "satisfaction-scale", max: 5, required: true },
                 { id: "V_2", label: "¿Cuáles considera que son los tres logros más importantes del proyecto hasta ahora?", type: "triple-text", placeholder: "Logro", required: true },
                 { id: "V_3", label: "¿Cuáles son los tres cambios más urgentes que haría para la reestructuración del proyecto?", type: "triple-text", placeholder: "Cambio prioritario", required: true },
                 { id: "V_4", label: "¿Hay algún aspecto clave del proyecto que no haya sido contemplado en esta encuesta y que considere relevante?", type: "text", required: false },
@@ -1172,7 +1172,7 @@
                 meta.style.color = "var(--color-text-muted)";
                 meta.style.marginTop = "6px";
                 meta.innerHTML = q.type === "satisfaction-scale" 
-                    ? "<span>1 - Totalmente insatisfecho</span><span>10 - Totalmente conforme</span>"
+                    ? `<span>1 - Totalmente insatisfecho</span><span>${maxVal} - Totalmente conforme</span>`
                     : "<span>1 - Deficiente</span><span>5 - Excelente</span>";
                 container.appendChild(meta);
             } 

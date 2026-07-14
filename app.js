@@ -1232,8 +1232,9 @@ const questionDatabase = {
     "sec5_all": [
         {
             "id": "V_1",
-            "label": "En una escala de 1 a 10, ¿qué tan satisfecho/a está con el Proyecto Aulas STEAM en general?",
+            "label": "En una escala de 1 a 5, ¿qué tan satisfecho/a está con el Proyecto Aulas STEAM en general?",
             "type": "satisfaction-scale",
+            "max": 5,
             "required": true
         },
         {
@@ -1758,7 +1759,7 @@ function renderInputElement(container, q) {
         meta.style.color = "var(--color-text-muted)";
         meta.style.marginTop = "6px";
         meta.innerHTML = q.type === "satisfaction-scale" 
-            ? "<span>1 - Totalmente insatisfecho</span><span>10 - Totalmente conforme</span>"
+            ? `<span>1 - Totalmente insatisfecho</span><span>${maxVal} - Totalmente conforme</span>`
             : "<span>1 - Deficiente</span><span>5 - Excelente</span>";
         container.appendChild(meta);
     } 

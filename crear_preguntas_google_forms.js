@@ -130,7 +130,7 @@ function crearYExtraerFormulario() {
     { id: "K_6_3", title: "¿Qué indicadores clave consideraría apropiados para medir el éxito?", type: "paragraph" },
     
     // Sección 3: Visión de Futuro
-    { id: "V_1", title: "Nivel de satisfacción general con el desarrollo del proyecto (1-10)", type: "text" },
+    { id: "V_1", title: "Nivel de satisfacción general con el desarrollo del proyecto (1-5)", type: "text" },
     { id: "V_2_1", title: "Logro más importante del proyecto (Logro #1)", type: "text" },
     { id: "V_2_2", title: "Mencione el logro #2 del proyecto", type: "text" },
     { id: "V_2_3", title: "Mencione el logro #3 del proyecto", type: "text" },
